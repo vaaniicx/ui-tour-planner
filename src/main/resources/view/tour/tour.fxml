@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.MenuItem?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="at.fhtw.tourplanner.ui.controller.tour.TourController">
+    <left>
+        <fx:include source="tour-list.fxml"/>
+    </left>
+
+    <center>
+        <TabPane fx:id="tabPane" stylesheets="@../../styles/tabs.css">
+            <Tab fx:id="tourTab" closable="false" text="Tour">
+                <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+                    <fx:include source="tour-details.fxml"/>
+                </ScrollPane>
+            </Tab>
+
+            <Tab fx:id="tourLogTab" closable="false" text="Einträge">
+                <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+                    <fx:include source="tour-log-details.fxml"/>
+                </ScrollPane>
+            </Tab>
+        </TabPane>
+    </center>
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <Menu mnemonicParsing="false" text="Tour">
+                <MenuItem fx:id="createTourMenuItem" text="Tour erfassen"/>
+                <MenuItem fx:id="importTourMenuItem" text="Tour importieren"/>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Über das Projekt"/>
+        </MenuBar>
+    </top>
+</BorderPane>
