@@ -1,10 +1,13 @@
 package at.fhtw.tourplanner.ui.viewmodel;
 
+import at.fhtw.tourplanner.ui.model.Tour;
 import at.fhtw.tourplanner.ui.model.TourLog;
 import at.fhtw.tourplanner.ui.model.ViewMode;
 import at.fhtw.tourplanner.ui.service.TourLogSelectionService;
 import at.fhtw.tourplanner.ui.service.TourSelectionService;
 import at.fhtw.tourplanner.ui.service.ViewModeService;
+import at.fhtw.tourplanner.ui.service.api.TourApiService;
+import at.fhtw.tourplanner.ui.service.api.TourLogApiService;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -27,10 +30,15 @@ public class TourLogDetailsViewModel {
     @Getter
     private final ObjectProperty<TourLog> selectedTourLog = new SimpleObjectProperty<>();
 
+    private final ObjectProperty<Tour> selectedTour = new SimpleObjectProperty<>();
+
     private final ViewModeService viewModeService = ViewModeService.getInstance();
+
+    private final TourLogApiService tourLogApiService = TourLogApiService.getInstance();
 
     public TourLogDetailsViewModel() {
         selectedTourLog.bindBidirectional(TourLogSelectionService.getInstance().getSelectedTourLog());
+        selectedTour.bind(TourSelectionService.getInstance().getSelectedTour());
         viewMode.bindBidirectional(viewModeService.getViewMode());
 
         selectedTourLog.addListener((_, _, _) -> {
@@ -65,20 +73,22 @@ public class TourLogDetailsViewModel {
 
     public void saveTourLog() {
         if (selectedTourLog.get() == null) {
-            TourLog toBeSaved = new TourLog(null, comment.get(), date.get());
-            System.out.println("create tour log // need to implement api layer");
+            TourLog toBeSaved = new TourLog(null, selectedTour.get().id(), comment.get(), date.get());
+            tourLogApiService.createTourLog(toBeSaved);
         } else {
-            TourLog toBeUpdated = selectedTourLog.get();
-            System.out.println("update tour log // need to implement api layer");
+            TourLog selectedTourLog = this.selectedTourLog.get();
+            TourLog toBeUpdated = new TourLog(selectedTourLog.id(), selectedTourLog.tourId(), comment.get(), date.get());
+            tourLogApiService.updateTourLog(toBeUpdated);
         }
-        System.out.println("refetch tour logs");
+        System.out.println("todo: refetch tour logs");
+    }
+
+    public void deleteTourLog() {
+        TourLog toBeDeleted = this.selectedTourLog.get();
+        tourLogApiService.deleteTourLog(toBeDeleted.tourId(), toBeDeleted.id());
     }
 
     public void switchToEditMode() {
         viewModeService.getViewMode().set(ViewMode.EDIT);
-    }
-
-    public void deleteTourLog() {
-        System.out.println("delete tour log // need to implement api layer");
     }
 }
