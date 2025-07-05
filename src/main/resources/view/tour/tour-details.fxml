@@ -5,13 +5,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.web.WebView?>
 
 <AnchorPane prefHeight="478.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhtw.tourplanner.ui.controller.tour.TourDetailsController">
     <Text fx:id="viewTitle" layoutX="227.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tour erstellen" textAlignment="CENTER" AnchorPane.topAnchor="14.2734375">
@@ -19,7 +19,7 @@
             <Font name="Arial" size="24.0" />
         </font>
     </Text>
-    <ImageView fitHeight="154.0" fitWidth="600.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0" />
+    <WebView fx:id="mapView" layoutY="56.0" prefHeight="168.0" prefWidth="600.0" />
     <GridPane layoutX="68.0" layoutY="225.0" prefHeight="249.0" prefWidth="464.0">
         <!-- NAME -->
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
@@ -49,9 +49,9 @@
         <ButtonBar prefHeight="67.0" prefWidth="337.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
             <buttons>
                 <AnchorPane prefHeight="49.0" prefWidth="338.0">
-                    <Button fx:id="saveButton" layoutX="67.0" layoutY="12.0" mnemonicParsing="false" text="Speichern"/>
-                    <Button fx:id="deleteButton" layoutX="179.0" layoutY="12.0" mnemonicParsing="false" text="Löschen"/>
-                    <Button fx:id="editButton" layoutX="250.0" layoutY="12.0" mnemonicParsing="false" text="Editieren"/>
+                    <Button fx:id="saveButton" layoutX="67.0" layoutY="12.0" mnemonicParsing="false" text="Speichern" />
+                    <Button fx:id="deleteButton" layoutX="179.0" layoutY="12.0" mnemonicParsing="false" text="Löschen" />
+                    <Button fx:id="editButton" layoutX="250.0" layoutY="12.0" mnemonicParsing="false" text="Editieren" />
                 </AnchorPane>
             </buttons>
         </ButtonBar>

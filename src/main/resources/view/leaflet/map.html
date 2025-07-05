@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <title>Leaflet Map</title>
+
+    <!-- Leaflet -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
+    <!-- Leaflet-Routing-Machine -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css"/>
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+
+    <style>
+        html, body, #map {
+            height: 100%;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script>
+        const map = L.map('map').setView([48.2082, 16.3738], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution : '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        const markers = [];
+        let routeControl = null;
+
+        map.on('contextmenu', e => {
+            if (markers.length === 2) return;
+
+            const m = L.marker(e.latlng).addTo(map);
+            markers.push(m);
+
+            m.on('contextmenu', () => {
+                map.removeLayer(m);
+                markers.splice(markers.indexOf(m), 1);
+
+                if (routeControl) {
+                    map.removeControl(routeControl);
+                    routeControl = null;
+                }
+            });
+
+            if (markers.length === 2) {
+                const from = markers[0].getLatLng();
+                const to   = markers[1].getLatLng();
+
+                if (routeControl) {
+                    map.removeControl(routeControl);
+                }
+
+                routeControl = L.Routing.control({
+                    waypoints: [from, to],
+                    lineOptions: { styles: [{ color: 'green', weight: 4 }] },
+                    addWaypoints: false,
+                    draggableWaypoints: false
+                }).addTo(map);
+            }
+        });
+    </script>
+    </body>
+</html>

@@ -11,8 +11,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class TourDetailsController implements Initializable {
@@ -21,6 +24,7 @@ public class TourDetailsController implements Initializable {
     private final ViewModeService viewModeService = ViewModeService.getInstance();
 
     public Text viewTitle;
+    public WebView mapView;
     public Label nameLabel;
     public Label descriptionLabel;
     public TextField name;
@@ -35,6 +39,9 @@ public class TourDetailsController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         viewModel = new TourDetailsViewModel();
         viewModel.switchToCreateMode();
+
+        WebEngine engine = mapView.getEngine();
+        engine.load(Objects.requireNonNull(getClass().getResource("/view/leaflet/map.html")).toExternalForm());
 
         initializeFormFieldBindings();
         initializeButtonVisibilityBindings();
