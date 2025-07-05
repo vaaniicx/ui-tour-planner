@@ -1,5 +1,6 @@
 package at.fhtw.tourplanner.ui.viewmodel;
 
+import at.fhtw.tourplanner.ui.model.Location;
 import at.fhtw.tourplanner.ui.model.Tour;
 import at.fhtw.tourplanner.ui.model.TourLog;
 import at.fhtw.tourplanner.ui.model.ViewMode;
@@ -29,10 +30,10 @@ public class TourDetailsViewModel {
     private final StringProperty description = new SimpleStringProperty();
 
     @Getter
-    private final StringProperty from = new SimpleStringProperty();
+    private final ObjectProperty<Location> from = new SimpleObjectProperty<>();
 
     @Getter
-    private final StringProperty to = new SimpleStringProperty();
+    private final ObjectProperty<Location> to = new SimpleObjectProperty<>();
 
     @Getter
     private final ObjectProperty<ViewMode> viewMode = new SimpleObjectProperty<>();
@@ -86,8 +87,8 @@ public class TourDetailsViewModel {
     private void showEmptyTour() {
         name.setValue("");
         description.setValue("");
-        from.setValue("");
-        to.setValue("");
+        from.setValue(new Location("", ""));
+        to.setValue(new Location("", ""));
     }
 
     public void switchToCreateMode() {

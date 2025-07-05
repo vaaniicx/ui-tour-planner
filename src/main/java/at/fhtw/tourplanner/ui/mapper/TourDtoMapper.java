@@ -6,7 +6,7 @@ import at.fhtw.tourplanner.ui.dto.tour.response.TourResponse;
 import at.fhtw.tourplanner.ui.model.Tour;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(uses = {LocationDtoMapper.class})
 public interface TourDtoMapper {
 
     Tour fromResponse(TourResponse response);

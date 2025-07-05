@@ -6,7 +6,7 @@
 
     <!-- Leaflet -->
     <link rel="stylesheet"
-          href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+          href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"/>
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 
     <!-- Leaflet-Routing-Machine -->
@@ -24,10 +24,15 @@
 <body>
     <div id="map"></div>
 
+    <input id="from-lat" type="text" hidden/>
+    <input id="from-lng" type="text" hidden/>
+    <input id="to-lat" type="text" hidden/>
+    <input id="to-lng" type="text" hidden/>
+
     <script>
         const map = L.map('map').setView([48.2082, 16.3738], 13);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution : '© OpenStreetMap contributors'
+            attribution: '© OpenStreetMap contributors'
         }).addTo(map);
 
         const markers = [];
@@ -53,13 +58,18 @@
                 const from = markers[0].getLatLng();
                 const to = markers[1].getLatLng();
 
+                document.getElementById("from-lat").value = from.lat;
+                document.getElementById("from-lng").value = from.lng;
+                document.getElementById("to-lat").value = to.lat;
+                document.getElementById("to-lng").value = to.lng;
+
                 if (routeControl) {
                     map.removeControl(routeControl);
                 }
 
                 routeControl = L.Routing.control({
                     waypoints: [from, to],
-                    lineOptions: { styles: [{ color: 'green', weight: 2 }] },
+                    lineOptions: {styles: [{color: 'green', weight: 2}]},
                     // this makes it possible to remove markers even
                     // after the maximum number of markers has been reached
                     createMarker: () => null,
@@ -70,5 +80,5 @@
             }
         });
     </script>
-    </body>
+</body>
 </html>

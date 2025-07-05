@@ -1,5 +1,6 @@
 package at.fhtw.tourplanner.ui.dto.tour.request;
 
+import at.fhtw.tourplanner.ui.dto.tour.LocationDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ public class TourUpdateRequest {
 
     private String description;
 
-    private String from;
+    private LocationDto from;
 
-    private String to;
+    private LocationDto to;
 }

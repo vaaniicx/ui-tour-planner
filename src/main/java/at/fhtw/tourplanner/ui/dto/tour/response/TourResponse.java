@@ -1,5 +1,7 @@
 package at.fhtw.tourplanner.ui.dto.tour.response;
 
+import at.fhtw.tourplanner.ui.dto.tour.LocationDto;
+import at.fhtw.tourplanner.ui.model.Location;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +17,7 @@ public class TourResponse {
 
     public String description;
 
-    public String from;
+    public LocationDto from;
 
-    public String to;
+    public LocationDto to;
 }

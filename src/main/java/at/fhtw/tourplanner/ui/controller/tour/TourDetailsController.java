@@ -1,5 +1,6 @@
 package at.fhtw.tourplanner.ui.controller.tour;
 
+import at.fhtw.tourplanner.ui.model.Location;
 import at.fhtw.tourplanner.ui.model.ViewMode;
 import at.fhtw.tourplanner.ui.service.ViewModeService;
 import at.fhtw.tourplanner.ui.viewmodel.TourDetailsViewModel;
@@ -51,8 +52,8 @@ public class TourDetailsController implements Initializable {
     private void initializeFormFieldBindings() {
         Bindings.bindBidirectional(name.textProperty(), viewModel.getName());
         Bindings.bindBidirectional(description.textProperty(), viewModel.getDescription());
-        Bindings.bindBidirectional(from.textProperty(), viewModel.getFrom());
-        Bindings.bindBidirectional(to.textProperty(), viewModel.getTo());
+        // Bindings.bindBidirectional(from.textProperty(), viewModel.getFrom());
+        // Bindings.bindBidirectional(to.textProperty(), viewModel.getTo());
 
         viewTitle.textProperty().bind(Bindings.createStringBinding(() -> {
             ViewMode viewMode = viewModel.getViewMode().get();
@@ -66,8 +67,8 @@ public class TourDetailsController implements Initializable {
         BooleanBinding readOnly = viewModel.getViewMode().isEqualTo(ViewMode.READ_ONLY);
         name.disableProperty().bind(readOnly);
         description.disableProperty().bind(readOnly);
-        from.disableProperty().bind(readOnly);
-        to.disableProperty().bind(readOnly);
+        // from.disableProperty().bind(readOnly);
+        // to.disableProperty().bind(readOnly);
     }
 
     private void initializeButtonVisibilityBindings() {
@@ -83,6 +84,15 @@ public class TourDetailsController implements Initializable {
     }
 
     private void onSaveButtonClick() {
+        WebEngine engine = mapView.getEngine();
+
+        String fromLat = (String) engine.executeScript("document.getElementById('from-lat').value");
+        String fromLng = (String) engine.executeScript("document.getElementById('from-lng').value");
+        String toLat = (String) engine.executeScript("document.getElementById('to-lat').value");
+        String toLng = (String) engine.executeScript("document.getElementById('to-lng').value");
+
+        viewModel.getFrom().set(new Location(fromLat, fromLng));
+        viewModel.getTo().set(new Location(toLat, toLng));
         viewModel.saveTour();
     }
 
