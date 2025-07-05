@@ -36,12 +36,12 @@
         map.on('contextmenu', e => {
             if (markers.length === 2) return;
 
-            const m = L.marker(e.latlng).addTo(map);
-            markers.push(m);
+            const marker = L.marker(e.latlng).addTo(map);
+            markers.push(marker);
 
-            m.on('contextmenu', () => {
-                map.removeLayer(m);
-                markers.splice(markers.indexOf(m), 1);
+            marker.on('contextmenu', () => {
+                map.removeLayer(marker);
+                markers.splice(markers.indexOf(marker), 1);
 
                 if (routeControl) {
                     map.removeControl(routeControl);
@@ -51,7 +51,7 @@
 
             if (markers.length === 2) {
                 const from = markers[0].getLatLng();
-                const to   = markers[1].getLatLng();
+                const to = markers[1].getLatLng();
 
                 if (routeControl) {
                     map.removeControl(routeControl);
@@ -59,9 +59,13 @@
 
                 routeControl = L.Routing.control({
                     waypoints: [from, to],
-                    lineOptions: { styles: [{ color: 'green', weight: 4 }] },
+                    lineOptions: { styles: [{ color: 'green', weight: 2 }] },
+                    // this makes it possible to remove markers even
+                    // after the maximum number of markers has been reached
+                    createMarker: () => null,
                     addWaypoints: false,
-                    draggableWaypoints: false
+                    draggableWaypoints: false,
+                    show: false
                 }).addTo(map);
             }
         });
