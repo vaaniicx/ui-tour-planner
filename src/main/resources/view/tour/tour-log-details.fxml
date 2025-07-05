@@ -12,16 +12,19 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.layout.StackPane?>
 <AnchorPane prefHeight="233.0"
             prefWidth="600.0"
             xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="at.fhtw.tourplanner.ui.controller.tour.TourLogDetailsController">
-    <Text fx:id="viewTitle" layoutX="213.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" AnchorPane.topAnchor="14.2734375">
-        <font>
-            <Font name="Arial" size="24.0" />
-        </font>
-    </Text>
+    <StackPane AnchorPane.topAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <Text fx:id="viewTitle" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
+            <font>
+                <Font name="Arial" size="24.0" />
+            </font>
+        </Text>
+    </StackPane>
     <GridPane layoutX="68.0" layoutY="56.0" prefHeight="160.0" prefWidth="464.0">
         <!-- DATE -->
         <AnchorPane prefHeight="200.0" prefWidth="200.0">

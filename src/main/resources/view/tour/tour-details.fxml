@@ -13,13 +13,18 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
+<?import javafx.scene.layout.StackPane?>
 <AnchorPane prefHeight="634.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhtw.tourplanner.ui.controller.tour.TourDetailsController">
-    <Text fx:id="viewTitle" layoutX="227.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tour erstellen" textAlignment="CENTER" AnchorPane.topAnchor="14.2734375">
-        <font>
-            <Font name="Arial" size="24.0" />
-        </font>
-    </Text>
+    <StackPane AnchorPane.topAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <Text fx:id="viewTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Tour erstellen" textAlignment="CENTER">
+            <font>
+                <Font name="Arial" size="24.0" />
+            </font>
+        </Text>
+    </StackPane>
+
     <WebView fx:id="mapView" layoutY="56.0" prefHeight="321.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+
     <GridPane layoutX="68.0" layoutY="385.0" prefHeight="249.0" prefWidth="464.0">
         <!-- NAME -->
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
