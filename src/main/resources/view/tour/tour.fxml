@@ -33,8 +33,9 @@
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <Menu mnemonicParsing="false" text="Tour">
-                <MenuItem fx:id="createTourMenuItem" text="Tour erfassen"/>
+                <MenuItem fx:id="createTourMenuItem" text="Tour erstellen"/>
                 <MenuItem fx:id="importTourMenuItem" text="Tour importieren"/>
+                <MenuItem fx:id="exportTourMenuItem" text="Touren exportieren"/>
             </Menu>
             <Menu mnemonicParsing="false" text="Über das Projekt"/>
         </MenuBar>

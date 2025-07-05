@@ -1,7 +1,9 @@
 package at.fhtw.tourplanner.ui.controller.tour;
 
 import at.fhtw.tourplanner.ui.model.ViewMode;
+import at.fhtw.tourplanner.ui.view.ViewHandler;
 import at.fhtw.tourplanner.ui.viewmodel.TourViewModel;
+import javafx.application.HostServices;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
@@ -17,6 +19,8 @@ public class TourController implements Initializable {
 
     public MenuItem createTourMenuItem;
     public MenuItem importTourMenuItem;
+    public MenuItem exportTourMenuItem;
+
     public TabPane tabPane;
     public Tab tourLogTab;
     public Tab tourTab;
@@ -40,6 +44,7 @@ public class TourController implements Initializable {
 
         createTourMenuItem.setOnAction(_ -> onCreateTourClick());
         importTourMenuItem.setOnAction(_ -> onImportTourClick());
+        exportTourMenuItem.setOnAction(_ -> onExportTourClick());
     }
 
     private void switchTab(Tab tab) {
@@ -53,5 +58,10 @@ public class TourController implements Initializable {
 
     private void onImportTourClick() {
         System.out.println("onImportTourClick");
+    }
+
+    private void onExportTourClick() {
+        HostServices hostServices = ViewHandler.getInstance().getHostServices();
+        hostServices.showDocument("http://localhost:8080/api/tours/export");
     }
 }

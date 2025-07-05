@@ -8,6 +8,7 @@ public class TourPlannerUI extends Application {
 
     @Override
     public void start(Stage stage) {
+        ViewHandler.getInstance().initialize(getHostServices());
         ViewHandler.getInstance().showWelcomeView();
     }
 }

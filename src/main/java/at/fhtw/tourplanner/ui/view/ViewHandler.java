@@ -1,5 +1,6 @@
 package at.fhtw.tourplanner.ui.view;
 
+import javafx.application.HostServices;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -7,6 +8,12 @@ import javafx.stage.Stage;
 public class ViewHandler {
 
     private static ViewHandler instance;
+
+    private HostServices hostServices;
+
+    public void initialize(HostServices hostServices) {
+        this.hostServices = hostServices;
+    }
 
     public void showWelcomeView() {
         FXMLLoader loader = new FXMLLoader(ViewHandler.class.getResource("/view/welcome.fxml"));
@@ -42,5 +49,9 @@ public class ViewHandler {
             instance = new ViewHandler();
         }
         return instance;
+    }
+
+    public HostServices getHostServices() {
+        return hostServices;
     }
 }
