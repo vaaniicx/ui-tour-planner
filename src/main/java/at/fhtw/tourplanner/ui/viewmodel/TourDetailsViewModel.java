@@ -1,16 +1,20 @@
 package at.fhtw.tourplanner.ui.viewmodel;
 
 import at.fhtw.tourplanner.ui.model.Tour;
+import at.fhtw.tourplanner.ui.model.TourLog;
 import at.fhtw.tourplanner.ui.model.ViewMode;
+import at.fhtw.tourplanner.ui.service.TourLogSelectionService;
 import at.fhtw.tourplanner.ui.service.TourService;
 import at.fhtw.tourplanner.ui.service.TourSelectionService;
 import at.fhtw.tourplanner.ui.service.ViewModeService;
 import at.fhtw.tourplanner.ui.service.api.TourApiService;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.*;
+import javafx.collections.FXCollections;
 import lombok.Getter;
+
+import java.util.Objects;
+import java.util.Optional;
 
 public class TourDetailsViewModel {
 
@@ -36,8 +40,14 @@ public class TourDetailsViewModel {
     @Getter
     private final ObjectProperty<Tour> selectedTour = new SimpleObjectProperty<>();
 
+    private final ObjectProperty<TourLog> selectedTourLog = new SimpleObjectProperty<>();
+
+    private final ListProperty<Tour> tours = new SimpleListProperty<>(FXCollections.observableArrayList());
+
     public TourDetailsViewModel() {
         selectedTour.bindBidirectional(TourSelectionService.getInstance().getSelectedTour());
+        selectedTourLog.bindBidirectional(TourLogSelectionService.getInstance().getSelectedTourLog());
+        Bindings.bindContentBidirectional(tours, TourService.getInstance().getTours());
         viewMode.bindBidirectional(viewModeService.getViewMode());
 
         selectedTour.addListener((_, _, _) -> {
@@ -47,6 +57,14 @@ public class TourDetailsViewModel {
                 showEmptyTour();
             }
         });
+
+        selectedTourLog.addListener((_, _, selectedTourLog) -> {
+            if (selectedTourLog != null) {
+                Optional<Tour> tourContainingTourLog = tours.stream().filter(tour -> Objects.equals(selectedTourLog.tourId(), tour.id())).findFirst();
+                tourContainingTourLog.ifPresent(selectedTour::set);
+            }
+        });
+
         viewMode.addListener((_, _, viewMode) -> onViewModeChange(viewMode));
     }
 
@@ -57,7 +75,7 @@ public class TourDetailsViewModel {
         }
     }
 
-    public void showTour() {
+    private void showTour() {
         Tour tour = selectedTour.get();
         name.setValue(tour.name());
         description.setValue(tour.description());
