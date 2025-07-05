@@ -22,7 +22,7 @@ public class ViewHandler {
         Scene scene = null;
 
         try {
-            scene = new Scene(loader.load());
+            scene = new Scene(loader.load(), 1280, 720);
         } catch (Exception e) {
             e.printStackTrace();
         }
