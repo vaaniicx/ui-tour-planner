@@ -23,13 +23,13 @@
         </font>
     </Text>
     <GridPane layoutX="68.0" layoutY="56.0" prefHeight="160.0" prefWidth="464.0">
-        <!-- NAME -->
+        <!-- DATE -->
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <Label fx:id="dateLabel" layoutX="64.0" layoutY="19.0" text="Datum" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="18.0" />
         </AnchorPane>
         <DatePicker fx:id="date" prefHeight="25.0" prefWidth="340.0" GridPane.columnIndex="1" />
 
-        <!-- DESCRIPTION -->
+        <!-- COMMENT -->
         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
             <Label fx:id="commentLabel" layoutX="29.0" layoutY="6.0" text="Kommentar" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="16.0" />
         </AnchorPane>
