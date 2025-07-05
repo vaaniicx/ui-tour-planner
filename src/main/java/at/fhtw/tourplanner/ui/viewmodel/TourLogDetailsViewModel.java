@@ -48,7 +48,7 @@ public class TourLogDetailsViewModel {
                 showEmptyTourLog();
             }
         });
-        viewMode.addListener((_, _, newValue) -> onViewModeChange(newValue));
+        viewMode.addListener((_, _, viewMode) -> onViewModeChange(viewMode));
     }
 
     public void showTourLog() {
