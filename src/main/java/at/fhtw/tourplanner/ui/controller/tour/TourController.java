@@ -30,15 +30,11 @@ public class TourController implements Initializable {
             return viewModel.getSelectedTourLog().get() == null && !isEditMode;
         }, viewModel.getViewMode(), viewModel.getSelectedTourLog()));
 
-        viewModel.getSelectedTour().addListener((_, _, selectedTour) -> {
-            if (selectedTour != null) {
-                switchTab(tourTab);
-            }
-        });
-
         viewModel.getSelectedTourLog().addListener((_, _, selectedTourLog) -> {
             if (selectedTourLog != null) {
                 switchTab(tourLogTab);
+            } else {
+                switchTab(tourTab);
             }
         });
 
