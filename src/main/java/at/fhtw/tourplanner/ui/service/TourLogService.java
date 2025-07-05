@@ -25,7 +25,7 @@ public class TourLogService {
             tourLogs.setAll(new ArrayList<>());
         } else {
             tourLogs.setAll(logs);
-            tourLogs.sort(Comparator.comparing(TourLog::startedAt));
+            tourLogs.sort(Comparator.comparing(TourLog::startedAt).reversed());
         }
     }
 
