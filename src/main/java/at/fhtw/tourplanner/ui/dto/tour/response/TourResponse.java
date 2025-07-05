@@ -8,9 +8,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TourResponse {
+
     public Long id;
+
     public String name;
+
     public String description;
+
     public String from;
+
     public String to;
 }

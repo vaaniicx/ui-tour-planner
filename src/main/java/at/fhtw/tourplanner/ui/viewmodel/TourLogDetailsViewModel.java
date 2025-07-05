@@ -6,7 +6,6 @@ import at.fhtw.tourplanner.ui.model.ViewMode;
 import at.fhtw.tourplanner.ui.service.TourLogSelectionService;
 import at.fhtw.tourplanner.ui.service.TourSelectionService;
 import at.fhtw.tourplanner.ui.service.ViewModeService;
-import at.fhtw.tourplanner.ui.service.api.TourApiService;
 import at.fhtw.tourplanner.ui.service.api.TourLogApiService;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -53,7 +52,7 @@ public class TourLogDetailsViewModel {
 
     public void showTourLog() {
         TourLog tourLog = selectedTourLog.get();
-        date.setValue(tourLog.startedAt());
+        date.setValue(tourLog.date());
         comment.setValue(tourLog.comment());
     }
 

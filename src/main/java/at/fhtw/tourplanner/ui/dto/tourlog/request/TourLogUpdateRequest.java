@@ -10,6 +10,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TourLogUpdateRequest {
-    private LocalDate startedAt;
+    private LocalDate date;
     private String comment;
 }

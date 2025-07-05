@@ -8,8 +8,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TourUpdateRequest {
+
     private String name;
+
     private String description;
+
     private String from;
+
     private String to;
 }

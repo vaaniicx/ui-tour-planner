@@ -68,7 +68,7 @@ public class TourListController implements Initializable {
                     setText(tour.name());
                 } else if (item instanceof TourLog log) {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d. MMMM yyyy", Locale.GERMAN);
-                    setText("Eintrag vom " + log.startedAt().format(formatter));
+                    setText("Eintrag vom " + log.date().format(formatter));
                 } else {
                     setText(item.toString());
                 }
