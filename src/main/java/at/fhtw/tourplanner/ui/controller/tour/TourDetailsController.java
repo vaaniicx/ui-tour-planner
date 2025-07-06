@@ -1,21 +1,21 @@
 package at.fhtw.tourplanner.ui.controller.tour;
 
 import at.fhtw.tourplanner.ui.model.Location;
+import at.fhtw.tourplanner.ui.model.TransportType;
 import at.fhtw.tourplanner.ui.model.ViewMode;
 import at.fhtw.tourplanner.ui.service.ViewModeService;
 import at.fhtw.tourplanner.ui.viewmodel.TourDetailsViewModel;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.util.StringConverter;
 
 import java.net.URL;
+import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -26,34 +26,40 @@ public class TourDetailsController implements Initializable {
 
     public Text viewTitle;
     public WebView mapView;
-    public Label nameLabel;
-    public Label descriptionLabel;
     public TextField name;
     public TextArea description;
-    public TextField from;
-    public TextField to;
     public Button saveButton;
     public Button editButton;
     public Button deleteButton;
+
+    public ChoiceBox<TransportType> transportTypes;
+    private static final Map<TransportType, String> TRANSPORT_TYPE_OPTIONS = Map.of(
+            TransportType.CAR, "Auto",
+            TransportType.BIKE, "Fahrrad",
+            TransportType.WALK, "Zu Fuß",
+            TransportType.HIKE, "Wandern",
+            TransportType.WHEELCHAIR, "Rollstuhl"
+    );
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         viewModel = new TourDetailsViewModel();
         viewModel.switchToCreateMode();
 
-        WebEngine engine = mapView.getEngine();
-        engine.load(Objects.requireNonNull(getClass().getResource("/view/leaflet/map.html")).toExternalForm());
-
+        loadLeafletMap();
         initializeFormFieldBindings();
         initializeButtonVisibilityBindings();
         registerButtonActions();
     }
 
+    private void loadLeafletMap() {
+        WebEngine engine = mapView.getEngine();
+        engine.load(Objects.requireNonNull(getClass().getResource("/view/leaflet/map.html")).toExternalForm());
+    }
+
     private void initializeFormFieldBindings() {
         Bindings.bindBidirectional(name.textProperty(), viewModel.getName());
         Bindings.bindBidirectional(description.textProperty(), viewModel.getDescription());
-        // Bindings.bindBidirectional(from.textProperty(), viewModel.getFrom());
-        // Bindings.bindBidirectional(to.textProperty(), viewModel.getTo());
 
         viewTitle.textProperty().bind(Bindings.createStringBinding(() -> {
             ViewMode viewMode = viewModel.getViewMode().get();
@@ -64,11 +70,29 @@ public class TourDetailsController implements Initializable {
             };
         }, viewModel.getViewMode()));
 
+        transportTypes.setItems(viewModel.getTransportTypes());
+        transportTypes.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(TransportType transportType) {
+                return transportType == null ? "" : TRANSPORT_TYPE_OPTIONS.get(transportType);
+            }
+
+            @Override
+            public TransportType fromString(String s) {
+                return TRANSPORT_TYPE_OPTIONS.entrySet().stream()
+                        .filter(e -> e.getValue().equals(s))
+                        .map(Map.Entry::getKey)
+                        .findFirst()
+                        .orElse(null);
+            }
+        });
+
+        transportTypes.valueProperty().bindBidirectional(viewModel.getTransportType());
+
         BooleanBinding readOnly = viewModel.getViewMode().isEqualTo(ViewMode.READ_ONLY);
         name.disableProperty().bind(readOnly);
         description.disableProperty().bind(readOnly);
-        // from.disableProperty().bind(readOnly);
-        // to.disableProperty().bind(readOnly);
+        transportTypes.disableProperty().bind(readOnly);
     }
 
     private void initializeButtonVisibilityBindings() {

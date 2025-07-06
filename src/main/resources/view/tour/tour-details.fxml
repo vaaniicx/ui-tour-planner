@@ -29,24 +29,24 @@
         <GridPane prefHeight="219.0" prefWidth="591.0">
             <!-- NAME -->
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                <Label fx:id="nameLabel" layoutX="64.0" layoutY="19.0" text="Name" AnchorPane.rightAnchor="20.0"
-                       AnchorPane.topAnchor="20.0"/>
+                <Label layoutX="64.0" layoutY="19.0" text="Name" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0"/>
             </AnchorPane>
             <TextField fx:id="name" disable="true" prefHeight="26.0" prefWidth="337.0" GridPane.columnIndex="1"/>
 
             <!-- DESCRIPTION -->
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
-                <Label fx:id="descriptionLabel" layoutX="29.0" layoutY="6.0" text="Beschreibung"
-                       AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="16.0"/>
+                <Label layoutX="29.0" layoutY="6.0" text="Beschreibung" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="16.0"/>
             </AnchorPane>
             <TextArea fx:id="description" disable="true" prefHeight="50.0" prefWidth="364.0" wrapText="true"
                       GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
-            <!-- FROM LOCATION -->
+            <!-- TRANSPORT TYPE -->
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                 <Text layoutX="64.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transporttyp"
                       AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0"/>
             </AnchorPane>
+            <ChoiceBox fx:id="transportTypes" prefHeight="25.0" prefWidth="367.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"
+                       GridPane.rowIndex="2"/>
 
             <!-- ACTION BUTTONS -->
             <ButtonBar prefHeight="67.0" prefWidth="337.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
@@ -61,8 +61,6 @@
                     </AnchorPane>
                 </buttons>
             </ButtonBar>
-          <ChoiceBox prefHeight="25.0" prefWidth="367.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"
-                     GridPane.rowIndex="2"/>
 
             <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" maxWidth="289.0" minWidth="10.0" prefWidth="156.0"/>

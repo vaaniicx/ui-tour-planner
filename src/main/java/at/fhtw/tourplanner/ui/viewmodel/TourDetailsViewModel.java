@@ -1,12 +1,9 @@
 package at.fhtw.tourplanner.ui.viewmodel;
 
-import at.fhtw.tourplanner.ui.model.Location;
-import at.fhtw.tourplanner.ui.model.Tour;
-import at.fhtw.tourplanner.ui.model.TourLog;
-import at.fhtw.tourplanner.ui.model.ViewMode;
+import at.fhtw.tourplanner.ui.model.*;
 import at.fhtw.tourplanner.ui.service.TourLogSelectionService;
-import at.fhtw.tourplanner.ui.service.TourService;
 import at.fhtw.tourplanner.ui.service.TourSelectionService;
+import at.fhtw.tourplanner.ui.service.TourService;
 import at.fhtw.tourplanner.ui.service.ViewModeService;
 import at.fhtw.tourplanner.ui.service.api.TourApiService;
 import javafx.beans.binding.Bindings;
@@ -36,21 +33,36 @@ public class TourDetailsViewModel {
     private final ObjectProperty<Location> to = new SimpleObjectProperty<>();
 
     @Getter
+    private final ObjectProperty<TransportType> transportType = new SimpleObjectProperty<>();
+
+    @Getter
     private final ObjectProperty<ViewMode> viewMode = new SimpleObjectProperty<>();
 
     @Getter
     private final ObjectProperty<Tour> selectedTour = new SimpleObjectProperty<>();
+
+    @Getter
+    private final ListProperty<TransportType> transportTypes = new SimpleListProperty<>(FXCollections.observableArrayList());
 
     private final ObjectProperty<TourLog> selectedTourLog = new SimpleObjectProperty<>();
 
     private final ListProperty<Tour> tours = new SimpleListProperty<>(FXCollections.observableArrayList());
 
     public TourDetailsViewModel() {
+        transportTypes.setAll(TransportType.values());
+
+        registerBindings();
+        registerListener();
+    }
+
+    private void registerBindings() {
         selectedTour.bindBidirectional(TourSelectionService.getInstance().getSelectedTour());
         selectedTourLog.bindBidirectional(TourLogSelectionService.getInstance().getSelectedTourLog());
         Bindings.bindContentBidirectional(tours, TourService.getInstance().getTours());
         viewMode.bindBidirectional(viewModeService.getViewMode());
+    }
 
+    private void registerListener() {
         selectedTour.addListener((_, _, _) -> {
             if (selectedTour.get() != null) {
                 showTour();
@@ -82,6 +94,7 @@ public class TourDetailsViewModel {
         description.setValue(tour.description());
         from.setValue(tour.from());
         to.setValue(tour.to());
+        transportType.setValue(TransportType.valueOf(tour.transportType()));
     }
 
     private void showEmptyTour() {
@@ -89,6 +102,7 @@ public class TourDetailsViewModel {
         description.setValue("");
         from.setValue(new Location("", ""));
         to.setValue(new Location("", ""));
+        transportType.setValue(TransportType.CAR); // show car per default
     }
 
     public void switchToCreateMode() {
@@ -101,10 +115,10 @@ public class TourDetailsViewModel {
 
     public void saveTour() {
         if (selectedTour.get() == null) {
-            Tour toBeSaved = new Tour(null, name.get(), description.get(), from.get(), to.get(), "CAR", null, null);
+            Tour toBeSaved = new Tour(null, name.get(), description.get(), from.get(), to.get(), transportType.get().name(), null, null);
             tourApiService.createTour(toBeSaved);
         } else {
-            Tour toBeUpdated = new Tour(selectedTour.get().id(), name.get(), description.get(), from.get(), to.get(), "", null, null);
+            Tour toBeUpdated = new Tour(selectedTour.get().id(), name.get(), description.get(), from.get(), to.get(), transportType.get().name(), null, null);
             tourApiService.updateTour(toBeUpdated);
         }
         tourService.loadTours();
