@@ -81,12 +81,11 @@ public class TourListController implements Initializable {
             if (selectedItem.getValue() instanceof Tour tour) {
                 viewModel.deselectTourLog();
                 viewModel.selectTour(tour);
-                viewModel.switchToReadOnlyViewMode();
             } else if (selectedItem.getValue() instanceof TourLog tourLog) {
                 viewModel.deselectTour();
                 viewModel.selectTourLog(tourLog);
-                viewModel.switchToReadOnlyViewMode();
             }
+            viewModel.switchToReadOnlyViewMode();
         }
     }
 }
