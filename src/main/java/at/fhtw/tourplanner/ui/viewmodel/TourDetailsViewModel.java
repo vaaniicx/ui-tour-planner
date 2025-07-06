@@ -90,7 +90,7 @@ public class TourDetailsViewModel {
         description.setValue("");
         from.setValue(new Location("", ""));
         to.setValue(new Location("", ""));
-        transportType.setValue(TransportType.CAR); // show car per default
+        transportType.setValue(null);
     }
 
     public void switchToCreateMode() {

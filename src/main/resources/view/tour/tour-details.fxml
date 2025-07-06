@@ -26,6 +26,7 @@
     </StackPane>
 
     <WebView fx:id="mapView" layoutY="58.0" prefHeight="287.0" prefWidth="636.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+
     <StackPane layoutY="345.0" prefHeight="310.0" prefWidth="636.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <GridPane prefHeight="277.0" prefWidth="581.0">
             <!-- NAME -->
@@ -46,11 +47,13 @@
             </AnchorPane>
             <ChoiceBox fx:id="transportTypes" prefHeight="25.0" prefWidth="401.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
+            <!-- DISTANCE -->
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                 <Label layoutX="6.0" layoutY="17.0" text="Distanz" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="16.0" />
             </AnchorPane>
             <TextField fx:id="distance" disable="true" prefHeight="26.0" prefWidth="337.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
+            <!-- ESTIMATED TIME -->
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
                 <Label layoutX="23.0" layoutY="18.0" text="Zeit" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="16.0" />
             </AnchorPane>
@@ -70,7 +73,7 @@
             <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" />
                 <ColumnConstraints hgrow="NEVER" maxWidth="Infinity" minWidth="400.0" prefWidth="711.0" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="395.0" minWidth="89.0" prefWidth="89.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="395.0" minWidth="89.0" prefWidth="89.0" />
                 <ColumnConstraints hgrow="ALWAYS" />
             </columnConstraints>
             <rowConstraints>

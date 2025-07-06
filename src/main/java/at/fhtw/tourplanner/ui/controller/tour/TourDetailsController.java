@@ -107,13 +107,15 @@ public class TourDetailsController implements Initializable {
         Bindings.bindBidirectional(name.textProperty(), viewModel.getName());
         Bindings.bindBidirectional(description.textProperty(), viewModel.getDescription());
         transportTypes.valueProperty().bindBidirectional(viewModel.getTransportType());
-        distance.textProperty().bind(Bindings.createStringBinding(() -> String.format("%.2f km", viewModel.getDistance().get()), viewModel.getDistance()));
+        distance.textProperty().bind(Bindings.createStringBinding(() -> {
+            double distanceInKilometers = viewModel.getDistance().get() / 1000;
+            return String.format("%.2f km", distanceInKilometers);
+        }, viewModel.getDistance()));
         duration.textProperty().bind(Bindings.createStringBinding(() -> {
-            double duration = viewModel.getDuration().getValue();
+            int duration = (int) viewModel.getDuration().getValue().doubleValue();
 
-            int totalSeconds = (int) Math.round(duration * 60);
-            int minutes = totalSeconds / 60;
-            int seconds = totalSeconds % 60;
+            int minutes = duration / 60;
+            int seconds = duration % 60;
 
             return String.format("%02d:%02d min", minutes, seconds);
         }, viewModel.getDuration()));

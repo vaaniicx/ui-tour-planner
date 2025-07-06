@@ -2,61 +2,92 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.layout.StackPane?>
-<AnchorPane prefHeight="233.0"
-            prefWidth="600.0"
-            xmlns="http://javafx.com/javafx/23.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="at.fhtw.tourplanner.ui.controller.tour.TourLogDetailsController">
-    <StackPane AnchorPane.topAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+<AnchorPane prefHeight="480.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhtw.tourplanner.ui.controller.tour.TourLogDetailsController">
+    <StackPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0">
         <Text fx:id="viewTitle" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
             <font>
                 <Font name="Arial" size="24.0" />
             </font>
         </Text>
     </StackPane>
-    <GridPane layoutX="68.0" layoutY="56.0" prefHeight="160.0" prefWidth="464.0">
-        <!-- DATE -->
-        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-            <Label fx:id="dateLabel" layoutX="64.0" layoutY="19.0" text="Datum" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="18.0" />
-        </AnchorPane>
-        <DatePicker fx:id="date" prefHeight="25.0" prefWidth="340.0" GridPane.columnIndex="1" />
 
-        <!-- COMMENT -->
-        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
-            <Label fx:id="commentLabel" layoutX="29.0" layoutY="6.0" text="Kommentar" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="16.0" />
-        </AnchorPane>
-        <TextArea fx:id="comment" prefHeight="71.0" prefWidth="372.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <StackPane layoutY="120.0" prefHeight="354.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <GridPane prefHeight="313.0" prefWidth="600.0">
+            <!-- DATE -->
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                <Label fx:id="dateLabel" layoutX="64.0" layoutY="19.0" text="Datum" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="18.0" />
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                <DatePicker fx:id="date" layoutX="80.0" layoutY="16.0" prefHeight="25.0" prefWidth="340.0"
+                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
+            </AnchorPane>
 
-        <!-- ACTION BUTTONS -->
-        <ButtonBar prefHeight="67.0" prefWidth="337.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-            <buttons>
-                <AnchorPane prefHeight="49.0" prefWidth="338.0">
-                    <Button fx:id="saveButton" layoutX="67.0" layoutY="12.0" mnemonicParsing="false" text="Speichern"/>
-                    <Button fx:id="deleteButton" layoutX="179.0" layoutY="12.0" mnemonicParsing="false" text="Löschen"/>
-                    <Button fx:id="editButton" layoutX="250.0" layoutY="12.0" mnemonicParsing="false" text="Editieren"/>
-                </AnchorPane>
-            </buttons>
-        </ButtonBar>
+            <!-- COMMENT -->
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                <Label fx:id="commentLabel" layoutX="29.0" layoutY="6.0" text="Kommentar" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="16.0" />
+            </AnchorPane>
+            <TextArea fx:id="comment" prefHeight="87.0" prefWidth="324.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="289.0" minWidth="10.0" prefWidth="127.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="455.0" minWidth="10.0" prefWidth="337.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-    </GridPane>
+            <!-- DIFFICULTY -->
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                <Label layoutX="62.0" layoutY="21.0" text="Schwierigkeit" AnchorPane.rightAnchor="20.0" />
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <ChoiceBox fx:id="difficulty" layoutY="17.0" prefWidth="150.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
+            </AnchorPane>
+
+            <!-- DISTANCE -->
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+                <Label layoutX="75.0" layoutY="21.0" text="Distanz" AnchorPane.rightAnchor="20.0" />
+            </AnchorPane>
+            <TextField fx:id="distance" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+            <!-- RATING -->
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
+                <Label layoutX="75.0" layoutY="21.0" text="Bewertung" AnchorPane.rightAnchor="20.0" />
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                <ChoiceBox fx:id="rating" layoutX="45.0" layoutY="17.0" prefWidth="150.0" AnchorPane.leftAnchor="0.0"
+                           AnchorPane.rightAnchor="0.0"/>
+            </AnchorPane>
+
+            <!-- ACTION BUTTONS -->
+            <ButtonBar prefHeight="67.0" prefWidth="337.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                <buttons>
+                    <AnchorPane prefHeight="49.0" prefWidth="338.0">
+                        <Button fx:id="saveButton" layoutX="67.0" layoutY="12.0" mnemonicParsing="false" text="Speichern" />
+                        <Button fx:id="deleteButton" layoutX="179.0" layoutY="12.0" mnemonicParsing="false" text="Löschen" />
+                        <Button fx:id="editButton" layoutX="250.0" layoutY="12.0" mnemonicParsing="false" text="Editieren" />
+                    </AnchorPane>
+                </buttons>
+            </ButtonBar>
+
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="289.0" minWidth="10.0" prefWidth="153.0" />
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="455.0" minWidth="10.0" prefWidth="326.0" />
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="455.0" minWidth="10.0" prefWidth="128.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+        </GridPane>
+    </StackPane>
 </AnchorPane>
