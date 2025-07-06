@@ -1,12 +1,15 @@
 package at.fhtw.tourplanner.ui.controller.tour;
 
 import at.fhtw.tourplanner.ui.model.Location;
+import at.fhtw.tourplanner.ui.model.Tour;
 import at.fhtw.tourplanner.ui.model.TransportType;
 import at.fhtw.tourplanner.ui.model.ViewMode;
 import at.fhtw.tourplanner.ui.service.ViewModeService;
 import at.fhtw.tourplanner.ui.viewmodel.TourDetailsViewModel;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -28,6 +31,8 @@ public class TourDetailsController implements Initializable {
     public WebView mapView;
     public TextField name;
     public TextArea description;
+    public TextField distance;
+    public TextField duration;
     public Button saveButton;
     public Button editButton;
     public Button deleteButton;
@@ -53,6 +58,36 @@ public class TourDetailsController implements Initializable {
         bindFormFieldReadOnly();
         bindButtonVisibility();
         setButtonOnAction();
+
+        viewModel.getSelectedTour().addListener((_, _, tour) -> {
+            if (tour != null) {
+                showRouteMarkers();
+            } else {
+                clearRouteMarkers();
+            }
+        });
+
+        viewModel.getViewMode().addListener((_, _, _) -> disableRouteMarkers());
+    }
+
+    private void showRouteMarkers() {
+        WebEngine engine = mapView.getEngine();
+
+        Location from = viewModel.getSelectedTour().get().from();
+        Location to = viewModel.getSelectedTour().get().to();
+        String js = String.format("setRoute(%s, %s, %s, %s);", from.latitude(), from.longitude(), to.latitude(), to.longitude());
+        engine.executeScript(js);
+    }
+
+    private void clearRouteMarkers() {
+        WebEngine engine = mapView.getEngine();
+        engine.executeScript("clearMarkers();");
+    }
+
+    private void disableRouteMarkers() {
+        WebEngine engine = mapView.getEngine();
+        boolean readOnly = viewModel.getViewMode().get() == ViewMode.READ_ONLY;
+        engine.executeScript("setIsReadOnly(" + readOnly + ");");
     }
 
     private void loadLeafletMap() {
@@ -75,6 +110,16 @@ public class TourDetailsController implements Initializable {
         Bindings.bindBidirectional(name.textProperty(), viewModel.getName());
         Bindings.bindBidirectional(description.textProperty(), viewModel.getDescription());
         transportTypes.valueProperty().bindBidirectional(viewModel.getTransportType());
+        distance.textProperty().bind(Bindings.createStringBinding(() -> String.format("%.2f km", viewModel.getDistance().get()), viewModel.getDistance()));
+        duration.textProperty().bind(Bindings.createStringBinding(() -> {
+            double duration = viewModel.getDuration().getValue();
+
+            int totalSeconds = (int) Math.round(duration * 60);
+            int minutes = totalSeconds / 60;
+            int seconds = totalSeconds % 60;
+
+            return String.format("%02d:%02d min", minutes, seconds);
+        }, viewModel.getDuration()));
     }
 
     private void setTransportTypeItemsAndConverter() {

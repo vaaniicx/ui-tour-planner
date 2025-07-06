@@ -26,6 +26,8 @@ public class TourDetailsViewModel {
     private final ObjectProperty<Location> from = new SimpleObjectProperty<>();
     private final ObjectProperty<Location> to = new SimpleObjectProperty<>();
     private final ObjectProperty<TransportType> transportType = new SimpleObjectProperty<>();
+    private final DoubleProperty distance = new SimpleDoubleProperty();
+    private final DoubleProperty duration = new SimpleDoubleProperty();
     private final ObjectProperty<ViewMode> viewMode = new SimpleObjectProperty<>();
     private final ObjectProperty<Tour> selectedTour = new SimpleObjectProperty<>();
     private final ListProperty<TransportType> transportTypes = new SimpleListProperty<>(FXCollections.observableArrayList());
@@ -79,6 +81,8 @@ public class TourDetailsViewModel {
         from.setValue(tour.from());
         to.setValue(tour.to());
         transportType.setValue(TransportType.valueOf(tour.transportType()));
+        distance.setValue(tour.distance());
+        duration.setValue(tour.duration());
     }
 
     private void showEmptyTour() {

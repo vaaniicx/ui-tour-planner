@@ -37,14 +37,40 @@
 
         const markers = [];
         let routeControl = null;
+        let isReadOnly = true;
 
-        map.on('contextmenu', e => {
-            if (markers.length === 2) return;
+        function setIsReadOnly(readOnly) {
+            isReadOnly = (readOnly === true) || (String(readOnly).toLowerCase() === "true");
+        }
 
-            const marker = L.marker(e.latlng).addTo(map);
-            markers.push(marker);
+        function updateHiddenInputs(from, to) {
+            document.getElementById("from-lat").value = from.lat;
+            document.getElementById("from-lng").value = from.lng;
+            document.getElementById("to-lat").value = to.lat;
+            document.getElementById("to-lng").value = to.lng;
+        }
+
+        function drawRoute(from, to) {
+            if (routeControl) map.removeControl(routeControl);
+
+            routeControl = L.Routing.control({
+                waypoints: [from, to],
+                lineOptions: {styles: [{color: 'green', weight: 2}]},
+                // this makes it possible to remove markers even
+                // after the maximum number of markers has been reached
+                createMarker: () => null,
+                addWaypoints: false,
+                draggableWaypoints: false,
+                show: false
+            }).addTo(map);
+        }
+
+        function addRemovableMarker(latlng) {
+            const marker = L.marker(latlng).addTo(map);
 
             marker.on('contextmenu', () => {
+                if (isReadOnly) return;
+
                 map.removeLayer(marker);
                 markers.splice(markers.indexOf(marker), 1);
 
@@ -54,29 +80,47 @@
                 }
             });
 
+            markers.push(marker);
+            return marker;
+        }
+
+        function clearMarkers() {
+            markers.forEach(m => map.removeLayer(m));
+            markers.length = 0;
+
+            if (routeControl) {
+                map.removeControl(routeControl);
+                routeControl = null;
+            }
+        }
+
+        function setRoute(lat1, lon1, lat2, lon2) {
+            clearMarkers();
+
+            const fromMarker = addRemovableMarker([lat1, lon1]);
+            const toMarker = addRemovableMarker([lat2, lon2]);
+
+            const from = fromMarker.getLatLng();
+            const to = toMarker.getLatLng();
+
+            updateHiddenInputs(from, to);
+            drawRoute(from, to);
+
+            // zoom to the location
+            map.fitBounds(L.featureGroup([fromMarker, toMarker]).getBounds(), {padding: [40, 40]});
+        }
+
+        map.on('contextmenu', e => {
+            if (markers.length === 2) return;
+
+            addRemovableMarker(e.latlng);
+
             if (markers.length === 2) {
                 const from = markers[0].getLatLng();
                 const to = markers[1].getLatLng();
 
-                document.getElementById("from-lat").value = from.lat;
-                document.getElementById("from-lng").value = from.lng;
-                document.getElementById("to-lat").value = to.lat;
-                document.getElementById("to-lng").value = to.lng;
-
-                if (routeControl) {
-                    map.removeControl(routeControl);
-                }
-
-                routeControl = L.Routing.control({
-                    waypoints: [from, to],
-                    lineOptions: {styles: [{color: 'green', weight: 2}]},
-                    // this makes it possible to remove markers even
-                    // after the maximum number of markers has been reached
-                    createMarker: () => null,
-                    addWaypoints: false,
-                    draggableWaypoints: false,
-                    show: false
-                }).addTo(map);
+                updateHiddenInputs(from, to);
+                drawRoute(from, to);
             }
         });
     </script>

@@ -4,7 +4,9 @@ import javafx.application.HostServices;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import lombok.Getter;
 
+@Getter
 public class ViewHandler {
 
     private static ViewHandler instance;
@@ -51,7 +53,4 @@ public class ViewHandler {
         return instance;
     }
 
-    public HostServices getHostServices() {
-        return hostServices;
-    }
 }
