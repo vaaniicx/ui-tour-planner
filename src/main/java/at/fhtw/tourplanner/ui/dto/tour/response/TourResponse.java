@@ -20,4 +20,10 @@ public class TourResponse {
     public LocationDto from;
 
     public LocationDto to;
+
+    private String transportType;
+
+    private Double distance;
+
+    private Double duration;
 }

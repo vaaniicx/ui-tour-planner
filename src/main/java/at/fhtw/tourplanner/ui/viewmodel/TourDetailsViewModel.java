@@ -101,10 +101,10 @@ public class TourDetailsViewModel {
 
     public void saveTour() {
         if (selectedTour.get() == null) {
-            Tour toBeSaved = new Tour(null, name.get(), description.get(), from.get(), to.get());
+            Tour toBeSaved = new Tour(null, name.get(), description.get(), from.get(), to.get(), "CAR", null, null);
             tourApiService.createTour(toBeSaved);
         } else {
-            Tour toBeUpdated = new Tour(selectedTour.get().id(), name.get(), description.get(), from.get(), to.get());
+            Tour toBeUpdated = new Tour(selectedTour.get().id(), name.get(), description.get(), from.get(), to.get(), "", null, null);
             tourApiService.updateTour(toBeUpdated);
         }
         tourService.loadTours();
