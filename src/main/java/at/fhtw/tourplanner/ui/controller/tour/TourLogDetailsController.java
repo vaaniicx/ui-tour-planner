@@ -25,8 +25,9 @@ public class TourLogDetailsController implements Initializable {
     public DatePicker date;
     public TextArea comment;
     public ChoiceBox<Difficulty> difficulty;
-    public TextField distance;
     public ChoiceBox<Rating> rating;
+    public TextField distance;
+    public TextField duration;
 
     public Button saveButton;
     public Button deleteButton;
@@ -75,6 +76,14 @@ public class TourLogDetailsController implements Initializable {
             double distanceInKilometers = viewModel.getDistance().get() / 1000;
             return String.format("%.2f km", distanceInKilometers);
         }, viewModel.getDistance()));
+        duration.textProperty().bind(Bindings.createStringBinding(() -> {
+            int duration = (int) viewModel.getDuration().getValue().doubleValue();
+
+            int minutes = duration / 60;
+            int seconds = duration % 60;
+
+            return String.format("%02d:%02d min", minutes, seconds);
+        }, viewModel.getDuration()));
         difficulty.valueProperty().bindBidirectional(viewModel.getDifficulty());
         rating.valueProperty().bindBidirectional(viewModel.getRating());
     }
