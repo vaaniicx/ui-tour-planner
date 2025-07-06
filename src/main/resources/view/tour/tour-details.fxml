@@ -45,7 +45,6 @@
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                 <Text layoutX="64.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transporttyp" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="16.0" />
             </AnchorPane>
-            <ChoiceBox fx:id="transportTypes" prefHeight="25.0" prefWidth="401.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
             <!-- DISTANCE -->
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
@@ -69,6 +68,11 @@
                     </AnchorPane>
                 </buttons>
             </ButtonBar>
+         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <children>
+                  <ChoiceBox fx:id="transportTypes" layoutX="153.0" layoutY="16.0" prefHeight="25.0" prefWidth="411.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            </children>
+         </AnchorPane>
 
             <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" />
