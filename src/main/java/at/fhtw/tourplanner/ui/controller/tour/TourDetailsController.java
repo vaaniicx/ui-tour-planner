@@ -1,15 +1,12 @@
 package at.fhtw.tourplanner.ui.controller.tour;
 
 import at.fhtw.tourplanner.ui.model.Location;
-import at.fhtw.tourplanner.ui.model.Tour;
 import at.fhtw.tourplanner.ui.model.TransportType;
 import at.fhtw.tourplanner.ui.model.ViewMode;
 import at.fhtw.tourplanner.ui.service.ViewModeService;
 import at.fhtw.tourplanner.ui.viewmodel.TourDetailsViewModel;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
