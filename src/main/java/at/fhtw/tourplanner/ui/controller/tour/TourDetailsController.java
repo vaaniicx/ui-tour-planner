@@ -47,9 +47,12 @@ public class TourDetailsController implements Initializable {
         viewModel.switchToCreateMode();
 
         loadLeafletMap();
-        initializeFormFieldBindings();
-        initializeButtonVisibilityBindings();
-        registerButtonActions();
+        bindViewTitle();
+        bindFormFieldValues();
+        setTransportTypeItemsAndConverter();
+        bindFormFieldReadOnly();
+        bindButtonVisibility();
+        setButtonOnAction();
     }
 
     private void loadLeafletMap() {
@@ -57,10 +60,7 @@ public class TourDetailsController implements Initializable {
         engine.load(Objects.requireNonNull(getClass().getResource("/view/leaflet/map.html")).toExternalForm());
     }
 
-    private void initializeFormFieldBindings() {
-        Bindings.bindBidirectional(name.textProperty(), viewModel.getName());
-        Bindings.bindBidirectional(description.textProperty(), viewModel.getDescription());
-
+    private void bindViewTitle() {
         viewTitle.textProperty().bind(Bindings.createStringBinding(() -> {
             ViewMode viewMode = viewModel.getViewMode().get();
             return switch (viewMode) {
@@ -69,7 +69,15 @@ public class TourDetailsController implements Initializable {
                 case READ_ONLY -> "Tour ansehen";
             };
         }, viewModel.getViewMode()));
+    }
 
+    private void bindFormFieldValues() {
+        Bindings.bindBidirectional(name.textProperty(), viewModel.getName());
+        Bindings.bindBidirectional(description.textProperty(), viewModel.getDescription());
+        transportTypes.valueProperty().bindBidirectional(viewModel.getTransportType());
+    }
+
+    private void setTransportTypeItemsAndConverter() {
         transportTypes.setItems(viewModel.getTransportTypes());
         transportTypes.setConverter(new StringConverter<>() {
             @Override
@@ -86,38 +94,40 @@ public class TourDetailsController implements Initializable {
                         .orElse(null);
             }
         });
+    }
 
-        transportTypes.valueProperty().bindBidirectional(viewModel.getTransportType());
-
+    private void bindFormFieldReadOnly() {
         BooleanBinding readOnly = viewModel.getViewMode().isEqualTo(ViewMode.READ_ONLY);
         name.disableProperty().bind(readOnly);
         description.disableProperty().bind(readOnly);
         transportTypes.disableProperty().bind(readOnly);
     }
 
-    private void initializeButtonVisibilityBindings() {
+    private void bindButtonVisibility() {
         saveButton.visibleProperty().bind(Bindings.createBooleanBinding(this::showSaveButton, viewModel.getViewMode()));
         editButton.visibleProperty().bind(Bindings.createBooleanBinding(this::showEditButton, viewModel.getViewMode()));
         deleteButton.visibleProperty().bind(Bindings.createBooleanBinding(this::showDeleteButton, viewModel.getViewMode()));
     }
 
-    private void registerButtonActions() {
+    private void setButtonOnAction() {
         saveButton.setOnAction(_ -> onSaveButtonClick());
         editButton.setOnAction(_ -> onEditButtonClick());
         deleteButton.setOnAction(_ -> onDeleteButtonClick());
     }
 
     private void onSaveButtonClick() {
-        WebEngine engine = mapView.getEngine();
-
-        String fromLat = (String) engine.executeScript("document.getElementById('from-lat').value");
-        String fromLng = (String) engine.executeScript("document.getElementById('from-lng').value");
-        String toLat = (String) engine.executeScript("document.getElementById('to-lat').value");
-        String toLng = (String) engine.executeScript("document.getElementById('to-lng').value");
+        String fromLat = getFromElementInMapView("from-lat");
+        String fromLng = getFromElementInMapView("from-lng");
+        String toLat = getFromElementInMapView("to-lat");
+        String toLng = getFromElementInMapView("to-lng");
 
         viewModel.getFrom().set(new Location(fromLat, fromLng));
         viewModel.getTo().set(new Location(toLat, toLng));
         viewModel.saveTour();
+    }
+
+    private String getFromElementInMapView(String elementId) {
+        return (String) mapView.getEngine().executeScript("document.getElementById('" + elementId + "').value");
     }
 
     private void onEditButtonClick() {
