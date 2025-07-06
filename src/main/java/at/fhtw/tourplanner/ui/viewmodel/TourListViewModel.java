@@ -12,18 +12,11 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import lombok.Getter;
 
+@Getter
 public class TourListViewModel {
 
-    private final TourService tourService = TourService.getInstance();
-    private final TourLogService tourLogService = TourLogService.getInstance();
-    private final ViewModeService viewModeService = ViewModeService.getInstance();
-
-    @Getter
     private final ListProperty<Tour> tours = new SimpleListProperty<>(FXCollections.observableArrayList());
-
-    @Getter
     private final ListProperty<TourLog> tourLogs = new SimpleListProperty<>(FXCollections.observableArrayList());
-
     private final ObjectProperty<Tour> selectedTour = new SimpleObjectProperty<>();
     private final ObjectProperty<TourLog> selectedTourLog = new SimpleObjectProperty<>();
 
@@ -35,11 +28,11 @@ public class TourListViewModel {
     }
 
     public void loadTours() {
-        tourService.loadTours();
+        TourService.getInstance().loadTours();
     }
 
     public void loadTourLogs(long id) {
-        tourLogService.loadTourLogs(id);
+        TourLogService.getInstance().loadTourLogs(id);
     }
 
     public void selectTour(Tour tour) {
@@ -63,6 +56,6 @@ public class TourListViewModel {
     }
 
     public void switchToReadOnlyViewMode() {
-        viewModeService.getViewMode().set(ViewMode.READ_ONLY);
+        ViewModeService.getInstance().getViewMode().set(ViewMode.READ_ONLY);
     }
 }

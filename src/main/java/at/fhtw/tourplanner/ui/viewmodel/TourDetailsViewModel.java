@@ -14,38 +14,22 @@ import lombok.Getter;
 import java.util.Objects;
 import java.util.Optional;
 
+@Getter
 public class TourDetailsViewModel {
 
     private final TourApiService tourApiService = TourApiService.getInstance();
     private final ViewModeService viewModeService = ViewModeService.getInstance();
     private final TourService tourService = TourService.getInstance();
 
-    @Getter
     private final StringProperty name = new SimpleStringProperty();
-
-    @Getter
     private final StringProperty description = new SimpleStringProperty();
-
-    @Getter
     private final ObjectProperty<Location> from = new SimpleObjectProperty<>();
-
-    @Getter
     private final ObjectProperty<Location> to = new SimpleObjectProperty<>();
-
-    @Getter
     private final ObjectProperty<TransportType> transportType = new SimpleObjectProperty<>();
-
-    @Getter
     private final ObjectProperty<ViewMode> viewMode = new SimpleObjectProperty<>();
-
-    @Getter
     private final ObjectProperty<Tour> selectedTour = new SimpleObjectProperty<>();
-
-    @Getter
     private final ListProperty<TransportType> transportTypes = new SimpleListProperty<>(FXCollections.observableArrayList());
-
     private final ObjectProperty<TourLog> selectedTourLog = new SimpleObjectProperty<>();
-
     private final ListProperty<Tour> tours = new SimpleListProperty<>(FXCollections.observableArrayList());
 
     public TourDetailsViewModel() {

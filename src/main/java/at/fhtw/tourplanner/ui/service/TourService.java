@@ -12,13 +12,11 @@ public class TourService {
 
     private static TourService instance;
 
-    private final TourApiService tourApiService = TourApiService.getInstance();
-
     @Getter
     private final ObservableList<Tour> tours = FXCollections.observableArrayList();
 
     public void loadTours() {
-        tours.setAll(tourApiService.getAllTours());
+        tours.setAll(TourApiService.getInstance().getAllTours());
         tours.sort(Comparator.comparing(Tour::name));
     }
 

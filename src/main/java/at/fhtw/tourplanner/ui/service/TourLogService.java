@@ -14,13 +14,11 @@ public class TourLogService {
 
     private static TourLogService instance;
 
-    private final TourLogApiService tourLogApiService = TourLogApiService.getInstance();
-
     @Getter
     private final ObservableList<TourLog> tourLogs = FXCollections.observableArrayList();
 
     public void loadTourLogs(long tourId) {
-        List<TourLog> logs = tourLogApiService.getLogsForTour(tourId);
+        List<TourLog> logs = TourLogApiService.getInstance().getLogsForTour(tourId);
         if (logs.isEmpty()) {
             tourLogs.setAll(new ArrayList<>());
         } else {

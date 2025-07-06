@@ -15,30 +15,22 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import lombok.Getter;
 
+@Getter
 public class TourViewModel {
 
-    @Getter
     private final ObjectProperty<ViewMode> viewMode = new SimpleObjectProperty<>();
-
-    @Getter
     private final ListProperty<TourLog> tourLogs = new SimpleListProperty<>(FXCollections.observableArrayList());
-
-    @Getter
     private final ObjectProperty<Tour> selectedTour = new SimpleObjectProperty<>();
-
-    @Getter
     private final ObjectProperty<TourLog> selectedTourLog = new SimpleObjectProperty<>();
 
-    private final ViewModeService viewModeService = ViewModeService.getInstance();
-
     public TourViewModel() {
-        viewMode.bindBidirectional(viewModeService.getViewMode());
+        viewMode.bindBidirectional(ViewModeService.getInstance().getViewMode());
         Bindings.bindContentBidirectional(tourLogs, TourLogService.getInstance().getTourLogs());
         selectedTour.bindBidirectional(TourSelectionService.getInstance().getSelectedTour());
         selectedTourLog.bindBidirectional(TourLogSelectionService.getInstance().getSelectedTourLog());
     }
 
     public void switchToCreateViewMode() {
-        viewModeService.getViewMode().set(ViewMode.CREATE);
+        ViewModeService.getInstance().getViewMode().set(ViewMode.CREATE);
     }
 }
