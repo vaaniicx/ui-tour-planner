@@ -68,7 +68,7 @@ public class TourDetailsViewModel {
     }
 
     private void onViewModeChange(ViewMode viewMode) {
-        if (viewMode == ViewMode.CREATE) {
+        if (viewMode.isCreate()) {
             selectedTour.set(null);
             showEmptyTour();
         }
