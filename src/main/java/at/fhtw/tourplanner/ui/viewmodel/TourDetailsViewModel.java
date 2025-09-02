@@ -37,18 +37,18 @@ public class TourDetailsViewModel {
     public TourDetailsViewModel() {
         transportTypes.setAll(TransportType.values());
 
-        registerBindings();
-        registerListener();
+        setupBindings();
+        setupListeners();
     }
 
-    private void registerBindings() {
+    private void setupBindings() {
         selectedTour.bindBidirectional(TourSelectionService.getInstance().getSelectedTour());
         selectedTourLog.bindBidirectional(TourLogSelectionService.getInstance().getSelectedTourLog());
         Bindings.bindContentBidirectional(tours, TourService.getInstance().getTours());
         viewMode.bindBidirectional(viewModeService.getViewMode());
     }
 
-    private void registerListener() {
+    private void setupListeners() {
         selectedTour.addListener((_, _, _) -> {
             if (selectedTour.get() != null) {
                 showTour();
