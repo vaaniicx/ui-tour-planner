@@ -50,10 +50,10 @@ public class TourDetailsViewModel {
 
     private void setupListeners() {
         selectedTour.addListener((_, _, _) -> {
-            if (selectedTour.get() != null) {
-                showTour();
-            } else {
+            if (selectedTour.get() == null) {
                 showEmptyTour();
+            } else {
+                showTour();
             }
         });
 
