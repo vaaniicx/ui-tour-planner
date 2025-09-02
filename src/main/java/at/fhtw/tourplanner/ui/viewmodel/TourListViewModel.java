@@ -2,7 +2,6 @@ package at.fhtw.tourplanner.ui.viewmodel;
 
 import at.fhtw.tourplanner.ui.model.Tour;
 import at.fhtw.tourplanner.ui.model.TourLog;
-import at.fhtw.tourplanner.ui.model.ViewMode;
 import at.fhtw.tourplanner.ui.service.*;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ListProperty;
@@ -53,9 +52,5 @@ public class TourListViewModel {
         if (selectedTourLog.get() != null) {
             selectedTourLog.set(null);
         }
-    }
-
-    public void switchToReadOnlyViewMode() {
-        ViewModeService.getInstance().getViewMode().set(ViewMode.READ_ONLY);
     }
 }
