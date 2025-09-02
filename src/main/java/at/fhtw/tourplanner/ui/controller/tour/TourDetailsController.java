@@ -184,7 +184,7 @@ public class TourDetailsController implements Initializable {
 
     private boolean showSaveButton() {
         ViewMode viewMode = viewModeService.getViewMode().get();
-        return viewMode == ViewMode.CREATE || viewMode == ViewMode.EDIT;
+        return viewMode.isCreateOrEdit();
     }
 
     private boolean showEditButton() {
@@ -196,6 +196,7 @@ public class TourDetailsController implements Initializable {
     }
 
     private boolean isReadOnlyViewMode() {
-        return viewModeService.getViewMode().get() == ViewMode.READ_ONLY;
+        ViewMode viewMode = viewModeService.getViewMode().get();
+        return viewMode.isReadOnly();
     }
 }
