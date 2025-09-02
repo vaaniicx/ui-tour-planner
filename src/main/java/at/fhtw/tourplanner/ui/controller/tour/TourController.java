@@ -55,21 +55,21 @@ public class TourController extends BaseController implements Initializable {
     }
 
     private void setupMenuActions() {
-        createTourMenuItem.setOnAction(_ -> onCreateTourClick());
-        importTourMenuItem.setOnAction(_ -> onImportTourClick());
-        exportTourMenuItem.setOnAction(_ -> onExportTourClick());
+        createTourMenuItem.setOnAction(_ -> handleCreateTour());
+        importTourMenuItem.setOnAction(_ -> handleImportTour());
+        exportTourMenuItem.setOnAction(_ -> handleExportTour());
     }
 
-    private void onCreateTourClick() {
+    private void handleCreateTour() {
         switchToCreateMode();
         switchTab(tourTab);
     }
 
-    private void onImportTourClick() {
+    private void handleImportTour() {
         System.out.println("onImportTourClick");
     }
 
-    private void onExportTourClick() {
+    private void handleExportTour() {
         HostServices hostServices = ViewHandler.getInstance().getHostServices();
         hostServices.showDocument("http://localhost:8080/api/tours/export");
     }
