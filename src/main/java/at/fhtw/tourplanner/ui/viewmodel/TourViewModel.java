@@ -29,8 +29,4 @@ public class TourViewModel {
         selectedTour.bindBidirectional(TourSelectionService.getInstance().getSelectedTour());
         selectedTourLog.bindBidirectional(TourLogSelectionService.getInstance().getSelectedTourLog());
     }
-
-    public void switchToCreateViewMode() {
-        ViewModeService.getInstance().getViewMode().set(ViewMode.CREATE);
-    }
 }

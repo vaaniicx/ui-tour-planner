@@ -1,5 +1,6 @@
 package at.fhtw.tourplanner.ui.controller.tour;
 
+import at.fhtw.tourplanner.ui.controller.BaseController;
 import at.fhtw.tourplanner.ui.model.ViewMode;
 import at.fhtw.tourplanner.ui.view.ViewHandler;
 import at.fhtw.tourplanner.ui.viewmodel.TourViewModel;
@@ -13,7 +14,7 @@ import javafx.scene.control.TabPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class TourController implements Initializable {
+public class TourController extends BaseController implements Initializable {
 
     private final TourViewModel viewModel = new TourViewModel();
 
@@ -60,7 +61,7 @@ public class TourController implements Initializable {
     }
 
     private void onCreateTourClick() {
-        viewModel.switchToCreateViewMode();
+        switchToCreateMode();
         switchTab(tourTab);
     }
 
