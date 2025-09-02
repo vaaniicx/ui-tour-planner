@@ -20,6 +20,10 @@ public abstract class BaseController {
         return getViewMode().isReadOnly();
     }
 
+    protected boolean isEditMode() {
+        return getViewMode().isEdit();
+    }
+
     protected boolean showSaveButton() {
         return getViewMode().isCreateOrEdit();
     }

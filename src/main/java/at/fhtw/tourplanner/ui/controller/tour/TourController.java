@@ -35,8 +35,8 @@ public class TourController extends BaseController implements Initializable {
 
     private void setupBindings() {
         tourLogTab.disableProperty().bind(Bindings.createBooleanBinding(() -> {
-            boolean isEditMode = viewModel.getViewMode().get().equals(ViewMode.EDIT);
-            return viewModel.getSelectedTourLog().get() == null && !isEditMode;
+            boolean isTourLogSelected = viewModel.getSelectedTourLog().get() != null;
+            return !(isTourLogSelected || isEditMode());
         }, viewModel.getViewMode(), viewModel.getSelectedTourLog()));
     }
 
