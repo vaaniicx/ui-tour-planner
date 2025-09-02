@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Getter
 public class TourLogDetailsViewModel {
@@ -66,12 +67,15 @@ public class TourLogDetailsViewModel {
     private void showEmptyTourLog() {
         date.setValue(LocalDate.now());
         comment.setValue(null);
-        distance.setValue(0);
+        difficulty.setValue(null);
+        rating.setValue(null);
+        Optional.ofNullable(getSelectedTourProperty()).ifPresent(tour -> distance.setValue(tour.distance()));
+        Optional.ofNullable(getSelectedTourProperty()).ifPresent(tour -> distance.setValue(tour.duration()));
     }
 
     public void saveTourLog() {
         if (selectedTourLog.get() == null) {
-            TourLog toBeSaved = new TourLog(null, selectedTour.get().id(), comment.get(), date.get(), difficulty.get(), rating.get(), distance.get(), duration.get());
+            TourLog toBeSaved = new TourLog(null, getSelectedTourProperty().id(), comment.get(), date.get(), difficulty.get(), rating.get(), distance.get(), duration.get());
             TourLogApiService.getInstance().createTourLog(toBeSaved);
         } else {
             TourLog selectedTourLog = this.selectedTourLog.get();
@@ -79,6 +83,10 @@ public class TourLogDetailsViewModel {
             TourLogApiService.getInstance().updateTourLog(toBeUpdated);
         }
         System.out.println("todo: refetch tour logs");
+    }
+
+    private Tour getSelectedTourProperty() {
+        return selectedTour.get();
     }
 
     public void deleteTourLog() {
