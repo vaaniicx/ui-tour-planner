@@ -85,8 +85,4 @@ public class TourLogDetailsViewModel {
         TourLog toBeDeleted = this.selectedTourLog.get();
         TourLogApiService.getInstance().deleteTourLog(toBeDeleted.tourId(), toBeDeleted.id());
     }
-
-    public void switchToEditMode() {
-        ViewModeService.getInstance().getViewMode().set(ViewMode.EDIT);
-    }
 }

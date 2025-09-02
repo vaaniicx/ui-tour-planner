@@ -93,14 +93,6 @@ public class TourDetailsViewModel {
         transportType.setValue(null);
     }
 
-    public void switchToCreateMode() {
-        viewModeService.getViewMode().set(ViewMode.CREATE);
-    }
-
-    public void switchToEditMode() {
-        viewModeService.getViewMode().set(ViewMode.EDIT);
-    }
-
     public void saveTour() {
         if (selectedTour.get() == null) {
             Tour toBeSaved = new Tour(null, name.get(), description.get(), from.get(), to.get(), transportType.get().name(), null, null);
