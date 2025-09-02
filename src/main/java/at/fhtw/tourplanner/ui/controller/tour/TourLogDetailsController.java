@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 
 public class TourLogDetailsController extends BaseController implements Initializable {
 
-    private TourLogDetailsViewModel viewModel;
+    private final TourLogDetailsViewModel viewModel = new TourLogDetailsViewModel();
 
     public Text viewTitle;
     public DatePicker date;
@@ -47,8 +47,6 @@ public class TourLogDetailsController extends BaseController implements Initiali
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        viewModel = new TourLogDetailsViewModel();
-
         bindViewTitle();
         bindFormFieldValues();
         setDifficultyItemsAndConverter();

@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 
 public class TourDetailsController extends BaseController implements Initializable {
 
-    private TourDetailsViewModel viewModel;
+    private final TourDetailsViewModel viewModel = new TourDetailsViewModel();
     private final ViewModeService viewModeService = ViewModeService.getInstance();
 
     public Text viewTitle;
@@ -46,7 +46,6 @@ public class TourDetailsController extends BaseController implements Initializab
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        viewModel = new TourDetailsViewModel();
         switchToCreateMode();
 
         loadLeafletMap();
