@@ -41,8 +41,9 @@ public class TourController extends BaseController implements Initializable {
     }
 
     private void setupListeners() {
-        viewModel.getSelectedTourLog().addListener((_, _, selectedTourLog) -> {
-            if (selectedTourLog != null) {
+        viewModel.getSelectedTourLog().addListener((_, _, newTourLog) -> {
+            boolean isTourLogSelected = newTourLog != null;
+            if (isTourLogSelected) {
                 switchTab(tourLogTab);
             } else {
                 switchTab(tourTab);
