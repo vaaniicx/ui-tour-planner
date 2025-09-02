@@ -20,14 +20,12 @@ public class TourListController extends BaseController implements Initializable 
 
     public static final int SINGLE_CLICK = 1;
 
-    private TourListViewModel viewModel;
+    private final TourListViewModel viewModel = new TourListViewModel();
 
     public TreeView<Object> tourTree;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        viewModel = new TourListViewModel();
-
         viewModel.getTours().addListener((ListChangeListener<Tour>) _ -> buildTreeView());
         // viewModel.getTourLogs().addListener((ListChangeListener<TourLog>) _ -> buildTreeView());
 
