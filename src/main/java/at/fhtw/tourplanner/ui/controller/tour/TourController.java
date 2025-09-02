@@ -1,7 +1,6 @@
 package at.fhtw.tourplanner.ui.controller.tour;
 
 import at.fhtw.tourplanner.ui.controller.BaseController;
-import at.fhtw.tourplanner.ui.model.ViewMode;
 import at.fhtw.tourplanner.ui.view.ViewHandler;
 import at.fhtw.tourplanner.ui.viewmodel.TourViewModel;
 import javafx.application.HostServices;
@@ -38,6 +37,9 @@ public class TourController extends BaseController implements Initializable {
             boolean isTourLogSelected = viewModel.getSelectedTourLog().get() != null;
             return !(isTourLogSelected || isEditMode());
         }, viewModel.getViewMode(), viewModel.getSelectedTourLog()));
+
+        tourTab.disableProperty().bind(Bindings.createBooleanBinding(() ->
+                viewModel.getSelectedTourLog().get() != null, viewModel.getSelectedTourLog()));
     }
 
     private void setupListeners() {
