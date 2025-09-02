@@ -42,7 +42,11 @@ public class TourLogDetailsViewModel {
                 showTourLog();
             }
         });
-        viewMode.addListener((_, _, viewMode) -> onViewModeChange(viewMode));
+        selectedTour.addListener((_, _, _) -> {
+            if (selectedTour.get() != null && selectedTourLog.get() == null) {
+                showEmptyTourLog();
+            }
+        });
     }
 
     public void showTourLog() {
@@ -55,22 +59,13 @@ public class TourLogDetailsViewModel {
         duration.setValue(tourLog.duration());
     }
 
-    private void onViewModeChange(ViewMode viewMode) {
-        if (viewMode.isCreate()) {
-            selectedTourLog.set(null);
-            showEmptyTourLog();
-        } else if (selectedTourLog.get() != null) {
-            showTourLog();
-        }
-    }
-
     private void showEmptyTourLog() {
         date.setValue(LocalDate.now());
         comment.setValue(null);
         difficulty.setValue(null);
         rating.setValue(null);
         Optional.ofNullable(getSelectedTourProperty()).ifPresent(tour -> distance.setValue(tour.distance()));
-        Optional.ofNullable(getSelectedTourProperty()).ifPresent(tour -> distance.setValue(tour.duration()));
+        Optional.ofNullable(getSelectedTourProperty()).ifPresent(tour -> duration.setValue(tour.duration()));
     }
 
     public void saveTourLog() {
