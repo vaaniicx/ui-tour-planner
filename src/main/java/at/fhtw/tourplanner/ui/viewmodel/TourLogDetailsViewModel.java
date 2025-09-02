@@ -35,10 +35,10 @@ public class TourLogDetailsViewModel {
         viewMode.bindBidirectional(ViewModeService.getInstance().getViewMode());
 
         selectedTourLog.addListener((_, _, _) -> {
-            if (selectedTourLog.get() != null) {
-                showTourLog();
-            } else {
+            if (selectedTourLog.get() == null) {
                 showEmptyTourLog();
+            } else {
+                showTourLog();
             }
         });
         viewMode.addListener((_, _, viewMode) -> onViewModeChange(viewMode));
