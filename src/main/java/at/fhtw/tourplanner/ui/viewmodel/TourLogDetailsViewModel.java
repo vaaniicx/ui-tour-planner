@@ -55,7 +55,7 @@ public class TourLogDetailsViewModel {
     }
 
     private void onViewModeChange(ViewMode viewMode) {
-        if (viewMode == ViewMode.CREATE) {
+        if (viewMode.isCreate()) {
             selectedTourLog.set(null);
             showEmptyTourLog();
         } else if (selectedTourLog.get() != null) {

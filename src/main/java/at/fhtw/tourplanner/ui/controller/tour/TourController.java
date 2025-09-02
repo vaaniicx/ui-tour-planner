@@ -27,11 +27,19 @@ public class TourController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        setupBindings();
+        setupListeners();
+        setupMenuActions();
+    }
+
+    private void setupBindings() {
         tourLogTab.disableProperty().bind(Bindings.createBooleanBinding(() -> {
             boolean isEditMode = viewModel.getViewMode().get().equals(ViewMode.EDIT);
             return viewModel.getSelectedTourLog().get() == null && !isEditMode;
         }, viewModel.getViewMode(), viewModel.getSelectedTourLog()));
+    }
 
+    private void setupListeners() {
         viewModel.getSelectedTourLog().addListener((_, _, selectedTourLog) -> {
             if (selectedTourLog != null) {
                 switchTab(tourLogTab);
@@ -39,14 +47,16 @@ public class TourController implements Initializable {
                 switchTab(tourTab);
             }
         });
-
-        createTourMenuItem.setOnAction(_ -> onCreateTourClick());
-        importTourMenuItem.setOnAction(_ -> onImportTourClick());
-        exportTourMenuItem.setOnAction(_ -> onExportTourClick());
     }
 
     private void switchTab(Tab tab) {
         tabPane.getSelectionModel().select(tab);
+    }
+
+    private void setupMenuActions() {
+        createTourMenuItem.setOnAction(_ -> onCreateTourClick());
+        importTourMenuItem.setOnAction(_ -> onImportTourClick());
+        exportTourMenuItem.setOnAction(_ -> onExportTourClick());
     }
 
     private void onCreateTourClick() {

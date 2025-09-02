@@ -47,7 +47,7 @@ public class TourDetailsController extends BaseController implements Initializab
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         viewModel = new TourDetailsViewModel();
-        viewModel.switchToCreateMode();
+        switchToCreateMode();
 
         loadLeafletMap();
         bindViewTitle();
@@ -156,7 +156,7 @@ public class TourDetailsController extends BaseController implements Initializab
 
     private void setButtonOnAction() {
         saveButton.setOnAction(_ -> onSaveButtonClick());
-        editButton.setOnAction(_ -> onEditButtonClick());
+        editButton.setOnAction(_ -> switchToEditMode());
         deleteButton.setOnAction(_ -> onDeleteButtonClick());
     }
 
@@ -173,10 +173,6 @@ public class TourDetailsController extends BaseController implements Initializab
 
     private String getFromElementInMapView(String elementId) {
         return (String) mapView.getEngine().executeScript("document.getElementById('" + elementId + "').value");
-    }
-
-    private void onEditButtonClick() {
-        viewModel.switchToEditMode();
     }
 
     private void onDeleteButtonClick() {

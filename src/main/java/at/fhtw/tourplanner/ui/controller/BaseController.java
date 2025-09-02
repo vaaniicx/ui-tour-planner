@@ -2,6 +2,7 @@ package at.fhtw.tourplanner.ui.controller;
 
 import at.fhtw.tourplanner.ui.model.ViewMode;
 import at.fhtw.tourplanner.ui.service.ViewModeService;
+import javafx.beans.property.ObjectProperty;
 
 public abstract class BaseController {
 
@@ -23,7 +24,23 @@ public abstract class BaseController {
         return getViewMode().isCreateOrEdit();
     }
 
+    protected void switchToCreateMode() {
+        getViewModeProperty().set(ViewMode.CREATE);
+    }
+
+    protected void switchToEditMode() {
+        getViewModeProperty().set(ViewMode.EDIT);
+    }
+
+    protected void switchToReadOnlyMode() {
+        getViewModeProperty().set(ViewMode.READ_ONLY);
+    }
+
     private ViewMode getViewMode() {
-        return viewModeService.getViewMode().get();
+        return getViewModeProperty().get();
+    }
+
+    private ObjectProperty<ViewMode> getViewModeProperty() {
+        return viewModeService.getViewMode();
     }
 }

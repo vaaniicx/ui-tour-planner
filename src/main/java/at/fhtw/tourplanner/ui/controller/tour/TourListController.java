@@ -1,11 +1,14 @@
 package at.fhtw.tourplanner.ui.controller.tour;
 
+import at.fhtw.tourplanner.ui.controller.BaseController;
 import at.fhtw.tourplanner.ui.model.Tour;
 import at.fhtw.tourplanner.ui.model.TourLog;
 import at.fhtw.tourplanner.ui.viewmodel.TourListViewModel;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.TreeCell;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
@@ -13,7 +16,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class TourListController implements Initializable {
+public class TourListController extends BaseController implements Initializable {
 
     public static final int SINGLE_CLICK = 1;
 
@@ -85,7 +88,7 @@ public class TourListController implements Initializable {
                 viewModel.deselectTour();
                 viewModel.selectTourLog(tourLog);
             }
-            viewModel.switchToReadOnlyViewMode();
+            switchToReadOnlyMode();
         }
     }
 }

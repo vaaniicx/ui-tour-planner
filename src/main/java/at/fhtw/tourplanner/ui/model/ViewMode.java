@@ -9,6 +9,10 @@ public enum ViewMode {
         return this == READ_ONLY;
     }
 
+    public boolean isCreate() {
+        return this == CREATE;
+    }
+
     public boolean isCreateOrEdit() {
         return this == CREATE || this == EDIT;
     }

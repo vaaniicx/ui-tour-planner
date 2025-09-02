@@ -20,7 +20,6 @@ import java.util.ResourceBundle;
 public class TourLogDetailsController extends BaseController implements Initializable {
 
     private TourLogDetailsViewModel viewModel;
-    private final ViewModeService viewModeService = ViewModeService.getInstance();
 
     public Text viewTitle;
     public DatePicker date;
@@ -143,16 +142,12 @@ public class TourLogDetailsController extends BaseController implements Initiali
 
     private void setButtonOnAction() {
         saveButton.setOnAction(_ -> onSaveButtonClick());
-        editButton.setOnAction(_ -> onEditButtonClick());
+        editButton.setOnAction(_ -> switchToEditMode());
         deleteButton.setOnAction(_ -> onDeleteButtonClick());
     }
 
     private void onSaveButtonClick() {
         viewModel.saveTourLog();
-    }
-
-    private void onEditButtonClick() {
-        viewModel.switchToEditMode();
     }
 
     private void onDeleteButtonClick() {
