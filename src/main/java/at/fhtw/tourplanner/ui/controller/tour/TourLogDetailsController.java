@@ -1,5 +1,6 @@
 package at.fhtw.tourplanner.ui.controller.tour;
 
+import at.fhtw.tourplanner.ui.controller.BaseController;
 import at.fhtw.tourplanner.ui.model.Difficulty;
 import at.fhtw.tourplanner.ui.model.Rating;
 import at.fhtw.tourplanner.ui.model.ViewMode;
@@ -16,7 +17,7 @@ import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class TourLogDetailsController implements Initializable {
+public class TourLogDetailsController extends BaseController implements Initializable {
 
     private TourLogDetailsViewModel viewModel;
     private final ViewModeService viewModeService = ViewModeService.getInstance();
@@ -156,22 +157,5 @@ public class TourLogDetailsController implements Initializable {
 
     private void onDeleteButtonClick() {
         viewModel.deleteTourLog();
-    }
-
-    private boolean showSaveButton() {
-        ViewMode viewMode = viewModeService.getViewMode().get();
-        return viewMode == ViewMode.CREATE || viewMode == ViewMode.EDIT;
-    }
-
-    private boolean showEditButton() {
-        return isReadOnlyViewMode();
-    }
-
-    private boolean showDeleteButton() {
-        return isReadOnlyViewMode();
-    }
-
-    private boolean isReadOnlyViewMode() {
-        return viewModeService.getViewMode().get() == ViewMode.READ_ONLY;
     }
 }

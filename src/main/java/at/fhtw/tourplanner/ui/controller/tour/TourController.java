@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
 
 public class TourController implements Initializable {
 
-    private TourViewModel viewModel;
+    private final TourViewModel viewModel = new TourViewModel();
 
     public MenuItem createTourMenuItem;
     public MenuItem importTourMenuItem;
@@ -27,8 +27,6 @@ public class TourController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        viewModel = new TourViewModel();
-
         tourLogTab.disableProperty().bind(Bindings.createBooleanBinding(() -> {
             boolean isEditMode = viewModel.getViewMode().get().equals(ViewMode.EDIT);
             return viewModel.getSelectedTourLog().get() == null && !isEditMode;

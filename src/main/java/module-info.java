@@ -16,6 +16,7 @@ module at.fhtw.tourplanner.ui {
     exports at.fhtw.tourplanner.ui.controller;
     exports at.fhtw.tourplanner.ui.controller.tour;
     exports at.fhtw.tourplanner.ui.model;
+    exports at.fhtw.tourplanner.ui.service;
     exports at.fhtw.tourplanner.ui.view;
     exports at.fhtw.tourplanner.ui.mapper;
     exports at.fhtw.tourplanner.ui.dto.tour;
