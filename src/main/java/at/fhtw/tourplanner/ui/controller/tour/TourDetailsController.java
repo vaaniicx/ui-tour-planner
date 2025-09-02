@@ -4,7 +4,6 @@ import at.fhtw.tourplanner.ui.controller.BaseController;
 import at.fhtw.tourplanner.ui.model.Location;
 import at.fhtw.tourplanner.ui.model.TransportType;
 import at.fhtw.tourplanner.ui.model.ViewMode;
-import at.fhtw.tourplanner.ui.service.ViewModeService;
 import at.fhtw.tourplanner.ui.viewmodel.TourDetailsViewModel;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -23,7 +22,6 @@ import java.util.ResourceBundle;
 public class TourDetailsController extends BaseController implements Initializable {
 
     private final TourDetailsViewModel viewModel = new TourDetailsViewModel();
-    private final ViewModeService viewModeService = ViewModeService.getInstance();
 
     public Text viewTitle;
     public WebView mapView;
