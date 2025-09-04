@@ -4,7 +4,7 @@ import at.fhtw.tourplanner.ui.model.ViewMode;
 import at.fhtw.tourplanner.ui.service.ViewModeService;
 import javafx.beans.property.ObjectProperty;
 
-public abstract class BaseController {
+public abstract class Controller {
 
     protected final ViewModeService viewModeService = ViewModeService.getInstance();
 

@@ -1,6 +1,6 @@
 package at.fhtw.tourplanner.ui.controller.tour;
 
-import at.fhtw.tourplanner.ui.controller.BaseController;
+import at.fhtw.tourplanner.ui.controller.Controller;
 import at.fhtw.tourplanner.ui.model.Tour;
 import at.fhtw.tourplanner.ui.model.TourLog;
 import at.fhtw.tourplanner.ui.viewmodel.TourListViewModel;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class TourListController extends BaseController implements Initializable {
+public class TourListController extends Controller implements Initializable {
 
     public static final int SINGLE_CLICK = 1;
 

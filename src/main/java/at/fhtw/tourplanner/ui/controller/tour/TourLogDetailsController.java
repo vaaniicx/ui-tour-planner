@@ -1,10 +1,9 @@
 package at.fhtw.tourplanner.ui.controller.tour;
 
-import at.fhtw.tourplanner.ui.controller.BaseController;
+import at.fhtw.tourplanner.ui.controller.Controller;
 import at.fhtw.tourplanner.ui.model.Difficulty;
 import at.fhtw.tourplanner.ui.model.Rating;
 import at.fhtw.tourplanner.ui.model.ViewMode;
-import at.fhtw.tourplanner.ui.service.ViewModeService;
 import at.fhtw.tourplanner.ui.viewmodel.TourLogDetailsViewModel;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -17,7 +16,7 @@ import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class TourLogDetailsController extends BaseController implements Initializable {
+public class TourLogDetailsController extends Controller implements Initializable {
 
     private final TourLogDetailsViewModel viewModel = new TourLogDetailsViewModel();
 

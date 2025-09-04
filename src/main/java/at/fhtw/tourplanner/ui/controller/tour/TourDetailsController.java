@@ -1,6 +1,6 @@
 package at.fhtw.tourplanner.ui.controller.tour;
 
-import at.fhtw.tourplanner.ui.controller.BaseController;
+import at.fhtw.tourplanner.ui.controller.Controller;
 import at.fhtw.tourplanner.ui.model.Location;
 import at.fhtw.tourplanner.ui.model.TransportType;
 import at.fhtw.tourplanner.ui.model.ViewMode;
@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class TourDetailsController extends BaseController implements Initializable {
+public class TourDetailsController extends Controller implements Initializable {
 
     private final TourDetailsViewModel viewModel = new TourDetailsViewModel();
 
