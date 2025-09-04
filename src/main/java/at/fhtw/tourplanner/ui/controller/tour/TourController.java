@@ -64,6 +64,7 @@ public class TourController extends BaseController implements Initializable {
     }
 
     private void handleCreateTour() {
+        viewModel.getSelectedTour().set(null);
         switchToCreateMode();
         switchTab(tourTab);
     }
