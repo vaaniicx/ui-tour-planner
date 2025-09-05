@@ -70,7 +70,7 @@ public class TourApiService {
     public void updateTour(Tour tour) {
         try {
             Request request = new Request.Builder()
-                    .url(BASE_URL + "/" + tour.id())
+                    .url(BASE_URL + "/" + tour.getId())
                     .put(RequestBody.create(mapper.writeValueAsString(dtoMapper.toTourUpdateRequest(tour)), MediaType.parse("application/json")))
                     .build();
 

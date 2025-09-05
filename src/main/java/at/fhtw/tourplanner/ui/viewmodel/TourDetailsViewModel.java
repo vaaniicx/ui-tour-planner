@@ -59,7 +59,7 @@ public class TourDetailsViewModel {
 
         selectedTourLog.addListener((_, _, selectedTourLog) -> {
             if (selectedTourLog != null) {
-                Optional<Tour> tourContainingTourLog = tours.stream().filter(tour -> Objects.equals(selectedTourLog.tourId(), tour.id())).findFirst();
+                Optional<Tour> tourContainingTourLog = tours.stream().filter(tour -> Objects.equals(selectedTourLog.tourId(), tour.getId())).findFirst();
                 tourContainingTourLog.ifPresent(selectedTour::set);
             }
         });
@@ -76,13 +76,13 @@ public class TourDetailsViewModel {
 
     private void showTour() {
         Tour tour = selectedTour.get();
-        name.setValue(tour.name());
-        description.setValue(tour.description());
-        from.setValue(tour.from());
-        to.setValue(tour.to());
-        transportType.setValue(TransportType.valueOf(tour.transportType()));
-        distance.setValue(tour.distance());
-        duration.setValue(tour.duration());
+        name.setValue(tour.getName());
+        description.setValue(tour.getDescription());
+        from.setValue(tour.getFrom());
+        to.setValue(tour.getTo());
+        transportType.setValue(TransportType.valueOf(tour.getTransportType()));
+        distance.setValue(tour.getDistance());
+        duration.setValue(tour.getDuration());
     }
 
     private void showEmptyTour() {
@@ -100,14 +100,14 @@ public class TourDetailsViewModel {
             Tour toBeSaved = new Tour(null, name.get(), description.get(), from.get(), to.get(), transportType.get().name(), null, null);
             tourApiService.createTour(toBeSaved);
         } else {
-            Tour toBeUpdated = new Tour(selectedTour.get().id(), name.get(), description.get(), from.get(), to.get(), transportType.get().name(), null, null);
+            Tour toBeUpdated = new Tour(selectedTour.get().getId(), name.get(), description.get(), from.get(), to.get(), transportType.get().name(), null, null);
             tourApiService.updateTour(toBeUpdated);
         }
         tourService.loadTours();
     }
 
     public void deleteTour() {
-        tourApiService.deleteTour(selectedTour.get().id());
+        tourApiService.deleteTour(selectedTour.get().getId());
         tourService.loadTours();
     }
 }

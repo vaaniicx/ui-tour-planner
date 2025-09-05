@@ -64,13 +64,13 @@ public class TourLogDetailsViewModel {
         comment.setValue(null);
         difficulty.setValue(null);
         rating.setValue(null);
-        Optional.ofNullable(getSelectedTourProperty()).ifPresent(tour -> distance.setValue(tour.distance()));
-        Optional.ofNullable(getSelectedTourProperty()).ifPresent(tour -> duration.setValue(tour.duration()));
+        Optional.ofNullable(getSelectedTourProperty()).ifPresent(tour -> distance.setValue(tour.getDistance()));
+        Optional.ofNullable(getSelectedTourProperty()).ifPresent(tour -> duration.setValue(tour.getDuration()));
     }
 
     public void saveTourLog() {
         if (selectedTourLog.get() == null) {
-            TourLog toBeSaved = new TourLog(null, getSelectedTourProperty().id(), comment.get(), date.get(), difficulty.get(), rating.get(), distance.get(), duration.get());
+            TourLog toBeSaved = new TourLog(null, getSelectedTourProperty().getId(), comment.get(), date.get(), difficulty.get(), rating.get(), distance.get(), duration.get());
             TourLogApiService.getInstance().createTourLog(toBeSaved);
         } else {
             TourLog selectedTourLog = this.selectedTourLog.get();

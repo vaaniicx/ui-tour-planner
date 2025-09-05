@@ -68,8 +68,8 @@ public class TourDetailsController extends Controller implements Initializable {
     private void showRouteMarkers() {
         WebEngine engine = mapView.getEngine();
 
-        Location from = viewModel.getSelectedTour().get().from();
-        Location to = viewModel.getSelectedTour().get().to();
+        Location from = viewModel.getSelectedTour().get().getFrom();
+        Location to = viewModel.getSelectedTour().get().getTo();
         String js = String.format("setRoute(%s, %s, %s, %s);", from.latitude(), from.longitude(), to.latitude(), to.longitude());
         engine.executeScript(js);
     }

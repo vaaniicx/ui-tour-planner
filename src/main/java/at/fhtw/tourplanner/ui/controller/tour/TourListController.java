@@ -46,7 +46,7 @@ public class TourListController extends Controller implements Initializable {
             TreeItem<Object> tourItem = new TreeItem<>(tour);
             tourItem.setExpanded(true);
 
-            viewModel.loadTourLogs(tour.id());
+            viewModel.loadTourLogs(tour.getId());
 
             List<TourLog> logs = viewModel.getTourLogs();
             for (TourLog log : logs) {
@@ -66,7 +66,7 @@ public class TourListController extends Controller implements Initializable {
                 if (empty || item == null) {
                     setText(null);
                 } else if (item instanceof Tour tour) {
-                    setText(tour.name());
+                    setText(tour.getName());
                 } else if (item instanceof TourLog log) {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d. MMMM yyyy", Locale.GERMAN);
                     setText("Eintrag vom " + log.date().format(formatter));
