@@ -91,6 +91,8 @@ public class TourDetailsViewModel {
         from.setValue(new Location("", ""));
         to.setValue(new Location("", ""));
         transportType.setValue(null);
+        distance.setValue(null);
+        duration.setValue(null);
     }
 
     public void saveTour() {
