@@ -88,10 +88,19 @@
             markers.forEach(m => map.removeLayer(m));
             markers.length = 0;
 
+            resetHiddenInputs();
+
             if (routeControl) {
                 map.removeControl(routeControl);
                 routeControl = null;
             }
+        }
+
+        function resetHiddenInputs() {
+            document.getElementById("from-lat").value = null;
+            document.getElementById("from-lng").value = null;
+            document.getElementById("to-lat").value = null;
+            document.getElementById("to-lng").value = null;
         }
 
         function setRoute(lat1, lon1, lat2, lon2) {
