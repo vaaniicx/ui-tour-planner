@@ -20,6 +20,8 @@ public class TourController extends Controller implements Initializable {
     public MenuItem createTourMenuItem;
     public MenuItem importTourMenuItem;
     public MenuItem exportTourMenuItem;
+    public MenuItem generateSingleReport;
+    public MenuItem generateSummaryReport;
 
     public TabPane tabPane;
     public Tab tourLogTab;
@@ -61,6 +63,8 @@ public class TourController extends Controller implements Initializable {
         createTourMenuItem.setOnAction(_ -> handleCreateTour());
         importTourMenuItem.setOnAction(_ -> handleImportTour());
         exportTourMenuItem.setOnAction(_ -> handleExportTour());
+        exportTourMenuItem.setOnAction(_ -> handleGenerateSingleReport());
+        exportTourMenuItem.setOnAction(_ -> handleGenerateSummaryReport());
     }
 
     private void handleCreateTour() {
@@ -77,5 +81,13 @@ public class TourController extends Controller implements Initializable {
     private void handleExportTour() {
         HostServices hostServices = ViewHandler.getInstance().getHostServices();
         hostServices.showDocument("http://localhost:8080/api/tours/export");
+    }
+
+    private void handleGenerateSingleReport() {
+        System.out.println("onGenerateSingleReportClick");
+    }
+
+    private void handleGenerateSummaryReport() {
+        System.out.println("onGenerateSummaryReportClick");
     }
 }

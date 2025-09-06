@@ -1,0 +1,7 @@
+.menu-bar .menu {
+    -fx-padding: 2 38 2 38;
+}
+
+.context-menu .menu-item {
+    -fx-padding: 5 20 5 20;
+}
