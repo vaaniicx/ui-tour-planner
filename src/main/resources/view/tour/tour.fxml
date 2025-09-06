@@ -34,17 +34,17 @@
         <MenuBar BorderPane.alignment="CENTER" stylesheets="@../../styles/menu.css">
             <Menu mnemonicParsing="false" text="File">
                 <Menu mnemonicParsing="false" text="Import">
-                    <MenuItem fx:id="importTourMenuItem" text="Tour importieren"/>
+                    <MenuItem fx:id="importTourMenuItem" text="Touren importieren"/>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Export">
                     <MenuItem fx:id="exportTourMenuItem" text="Touren exportieren"/>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Report">
-                    <MenuItem fx:id="generateSingleReport" text="Einzelreport herunterladen"/>
-                    <MenuItem fx:id="generateSummaryReport" text="Summaryreport herunterladen"/>
+                <Menu mnemonicParsing="false" text="Bericht">
+                    <MenuItem fx:id="generateSingleReport" text="Einzelbericht herunterladen"/>
+                    <MenuItem fx:id="generateSummaryReport" text="Gesamtbericht herunterladen"/>
                 </Menu>
             </Menu>
-            <Menu mnemonicParsing="false" text="Tour">
+            <Menu mnemonicParsing="false" text="Edit">
                 <MenuItem fx:id="createTourMenuItem" text="Tour erstellen"/>
             </Menu>
         </MenuBar>
