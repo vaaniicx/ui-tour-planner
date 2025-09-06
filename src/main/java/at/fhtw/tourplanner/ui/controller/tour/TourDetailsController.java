@@ -168,6 +168,15 @@ public class TourDetailsController extends Controller implements Initializable {
             String toLat = getFromElementInMapView("to-lat");
             String toLng = getFromElementInMapView("to-lng");
 
+            if (fromLat.isEmpty() || fromLng.isEmpty() || toLat.isEmpty() || toLng.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Tour erstellen");
+                alert.setHeaderText("Keine Route ausgewählt");
+                alert.setContentText("Bitte wählen Sie eine Route aus, um eine Tour zu erstellen.");
+                alert.showAndWait();
+                return;
+            }
+
             viewModel.getFrom().set(new Location(fromLat, fromLng));
             viewModel.getTo().set(new Location(toLat, toLng));
             viewModel.saveTour();
@@ -190,16 +199,19 @@ public class TourDetailsController extends Controller implements Initializable {
                         c.error("Name darf nicht leer sein.");
                     }
                 })
-                .decorates(name);
+                .decorates(name)
+                .immediate();
 
         validator.createCheck()
                 .dependsOn("description", description.textProperty())
                 .withMethod(c -> {
-                    if (c.get("description").toString().trim().isEmpty()) {
+                    Object value = c.get("description");
+                    if (value == null || value.toString().trim().isEmpty()) {
                         c.error("Beschreibung darf nicht leer sein.");
                     }
                 })
-                .decorates(description);
+                .decorates(description)
+                .immediate();
 
         validator.createCheck()
                 .dependsOn("transportTypes", transportTypes.valueProperty())
@@ -208,8 +220,10 @@ public class TourDetailsController extends Controller implements Initializable {
                         c.error("Transportmittel darf nicht leer sein.");
                     }
                 })
-                .decorates(transportTypes);
+                .decorates(transportTypes)
+                .immediate();
 
         saveButton.disableProperty().bind(validator.containsErrorsProperty());
+        validator.validate();
     }
 }

@@ -165,16 +165,19 @@ public class TourLogDetailsController extends Controller implements Initializabl
                         c.error("Datum darf nicht leer sein.");
                     }
                 })
-                .decorates(date);
+                .decorates(date)
+                .immediate();
 
         validator.createCheck()
                 .dependsOn("comment", comment.textProperty())
                 .withMethod(c -> {
-                    if (c.get("comment").toString().trim().isEmpty()) {
+                    Object value = c.get("comment");
+                    if (value == null || value.toString().trim().isEmpty()) {
                         c.error("Kommentar darf nicht leer sein.");
                     }
                 })
-                .decorates(comment);
+                .decorates(comment)
+                .immediate();
 
         validator.createCheck()
                 .dependsOn("difficulty", difficulty.valueProperty())
@@ -183,7 +186,8 @@ public class TourLogDetailsController extends Controller implements Initializabl
                         c.error("Schwierigkeit darf nicht leer sein.");
                     }
                 })
-                .decorates(difficulty);
+                .decorates(difficulty)
+                .immediate();
 
         validator.createCheck()
                 .dependsOn("rating", rating.valueProperty())
@@ -192,8 +196,10 @@ public class TourLogDetailsController extends Controller implements Initializabl
                         c.error("Bewertung darf nicht leer sein.");
                     }
                 })
-                .decorates(rating);
+                .decorates(rating)
+                .immediate();
 
         saveButton.disableProperty().bind(validator.containsErrorsProperty());
+        validator.validate();
     }
 }
