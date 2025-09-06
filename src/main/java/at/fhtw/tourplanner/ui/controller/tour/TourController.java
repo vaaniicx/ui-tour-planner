@@ -79,10 +79,8 @@ public class TourController extends Controller implements Initializable {
     }
 
     private void handleImportTour() {
-        System.out.println("onImportTourClick");
-
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Tour importieren");
+        fileChooser.setTitle("Touren importieren");
 
         FileChooser.ExtensionFilter jsonFilter = new FileChooser.ExtensionFilter("JSON Dateien (*.json)", "*.json");
         fileChooser.getExtensionFilters().add(jsonFilter);
