@@ -24,8 +24,8 @@ public class TourController extends Controller implements Initializable {
     public MenuItem createTourMenuItem;
     public MenuItem importTourMenuItem;
     public MenuItem exportTourMenuItem;
-    public MenuItem generateSingleReport;
-    public MenuItem generateSummaryReport;
+    public MenuItem generateSingleTourReportMenuItem;
+    public MenuItem generateSummaryReportMenuItem;
 
     public TabPane tabPane;
     public Tab tourLogTab;
@@ -67,8 +67,8 @@ public class TourController extends Controller implements Initializable {
         createTourMenuItem.setOnAction(_ -> handleCreateTour());
         importTourMenuItem.setOnAction(_ -> handleImportTour());
         exportTourMenuItem.setOnAction(_ -> handleExportTour());
-        generateSingleReport.setOnAction(_ -> handleGenerateSingleReport());
-        generateSummaryReport.setOnAction(_ -> handleGenerateSummaryReport());
+        generateSingleTourReportMenuItem.setOnAction(_ -> handleGenerateSingleTourReport());
+        generateSummaryReportMenuItem.setOnAction(_ -> handleGenerateSummaryReport());
     }
 
     private void handleCreateTour() {
@@ -100,7 +100,7 @@ public class TourController extends Controller implements Initializable {
         hostServices.showDocument("http://localhost:8080/api/tours/export");
     }
 
-    private void handleGenerateSingleReport() {
+    private void handleGenerateSingleTourReport() {
         if (viewModel.getSelectedTour().get() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Bericht erstellen");

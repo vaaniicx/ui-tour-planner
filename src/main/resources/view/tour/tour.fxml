@@ -40,8 +40,8 @@
                     <MenuItem fx:id="exportTourMenuItem" text="Touren exportieren"/>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Bericht">
-                    <MenuItem fx:id="generateSingleReport" text="Einzelbericht herunterladen"/>
-                    <MenuItem fx:id="generateSummaryReport" text="Gesamtbericht herunterladen"/>
+                    <MenuItem fx:id="generateSingleTourReportMenuItem" text="Einzelbericht herunterladen"/>
+                    <MenuItem fx:id="generateSummaryReportMenuItem" text="Gesamtbericht herunterladen"/>
                 </Menu>
             </Menu>
             <Menu mnemonicParsing="false" text="Edit">
