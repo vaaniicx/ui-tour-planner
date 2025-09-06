@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.util.StringConverter;
+import net.synedra.validatorfx.Validator;
 
 import java.net.URL;
 import java.util.Map;
@@ -22,6 +23,8 @@ import java.util.ResourceBundle;
 public class TourDetailsController extends Controller implements Initializable {
 
     private final TourDetailsViewModel viewModel = new TourDetailsViewModel();
+
+    private final Validator validator = new Validator();
 
     public Text viewTitle;
     public WebView mapView;
@@ -53,6 +56,7 @@ public class TourDetailsController extends Controller implements Initializable {
         bindFormFieldReadOnly();
         bindButtonVisibility();
         setButtonOnAction();
+        setupValidation();
 
         viewModel.getSelectedTour().addListener((_, _, tour) -> {
             if (tour != null) {
@@ -158,14 +162,16 @@ public class TourDetailsController extends Controller implements Initializable {
     }
 
     private void onSaveButtonClick() {
-        String fromLat = getFromElementInMapView("from-lat");
-        String fromLng = getFromElementInMapView("from-lng");
-        String toLat = getFromElementInMapView("to-lat");
-        String toLng = getFromElementInMapView("to-lng");
+        if (validator.validate()) {
+            String fromLat = getFromElementInMapView("from-lat");
+            String fromLng = getFromElementInMapView("from-lng");
+            String toLat = getFromElementInMapView("to-lat");
+            String toLng = getFromElementInMapView("to-lng");
 
-        viewModel.getFrom().set(new Location(fromLat, fromLng));
-        viewModel.getTo().set(new Location(toLat, toLng));
-        viewModel.saveTour();
+            viewModel.getFrom().set(new Location(fromLat, fromLng));
+            viewModel.getTo().set(new Location(toLat, toLng));
+            viewModel.saveTour();
+        }
     }
 
     private String getFromElementInMapView(String elementId) {
@@ -174,5 +180,36 @@ public class TourDetailsController extends Controller implements Initializable {
 
     private void onDeleteButtonClick() {
         viewModel.deleteTour();
+    }
+
+    private void setupValidation() {
+        validator.createCheck()
+                .dependsOn("name", name.textProperty())
+                .withMethod(c -> {
+                    if (c.get("name").toString().trim().isEmpty()) {
+                        c.error("Name darf nicht leer sein.");
+                    }
+                })
+                .decorates(name);
+
+        validator.createCheck()
+                .dependsOn("description", description.textProperty())
+                .withMethod(c -> {
+                    if (c.get("description").toString().trim().isEmpty()) {
+                        c.error("Beschreibung darf nicht leer sein.");
+                    }
+                })
+                .decorates(description);
+
+        validator.createCheck()
+                .dependsOn("transportTypes", transportTypes.valueProperty())
+                .withMethod(c -> {
+                    if (c.get("transportTypes") == null) {
+                        c.error("Transportmittel darf nicht leer sein.");
+                    }
+                })
+                .decorates(transportTypes);
+
+        saveButton.disableProperty().bind(validator.containsErrorsProperty());
     }
 }

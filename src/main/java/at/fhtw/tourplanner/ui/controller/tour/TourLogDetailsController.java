@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.util.StringConverter;
+import net.synedra.validatorfx.Validator;
 
 import java.net.URL;
 import java.util.Map;
@@ -19,6 +20,8 @@ import java.util.ResourceBundle;
 public class TourLogDetailsController extends Controller implements Initializable {
 
     private final TourLogDetailsViewModel viewModel = new TourLogDetailsViewModel();
+
+    private final Validator validator = new Validator();
 
     public Text viewTitle;
     public DatePicker date;
@@ -53,6 +56,7 @@ public class TourLogDetailsController extends Controller implements Initializabl
         bindFormFieldReadOnly();
         bindButtonVisibility();
         setButtonOnAction();
+        setupValidation();
     }
 
     private void bindViewTitle() {
@@ -144,10 +148,52 @@ public class TourLogDetailsController extends Controller implements Initializabl
     }
 
     private void onSaveButtonClick() {
-        viewModel.saveTourLog();
+        if (validator.validate()) {
+            viewModel.saveTourLog();
+        }
     }
 
     private void onDeleteButtonClick() {
         viewModel.deleteTourLog();
+    }
+
+    private void setupValidation() {
+        validator.createCheck()
+                .dependsOn("date", date.valueProperty())
+                .withMethod(c -> {
+                    if (c.get("date") == null) {
+                        c.error("Datum darf nicht leer sein.");
+                    }
+                })
+                .decorates(date);
+
+        validator.createCheck()
+                .dependsOn("comment", comment.textProperty())
+                .withMethod(c -> {
+                    if (c.get("comment").toString().trim().isEmpty()) {
+                        c.error("Kommentar darf nicht leer sein.");
+                    }
+                })
+                .decorates(comment);
+
+        validator.createCheck()
+                .dependsOn("difficulty", difficulty.valueProperty())
+                .withMethod(c -> {
+                    if (c.get("difficulty") == null) {
+                        c.error("Schwierigkeit darf nicht leer sein.");
+                    }
+                })
+                .decorates(difficulty);
+
+        validator.createCheck()
+                .dependsOn("rating", rating.valueProperty())
+                .withMethod(c -> {
+                    if (c.get("rating") == null) {
+                        c.error("Bewertung darf nicht leer sein.");
+                    }
+                })
+                .decorates(rating);
+
+        saveButton.disableProperty().bind(validator.containsErrorsProperty());
     }
 }

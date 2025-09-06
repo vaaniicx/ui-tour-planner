@@ -24,6 +24,7 @@
         <jackson-databind.version>2.17.1</jackson-databind.version>
         <jackson-datatype-jsr310.version>2.19.1</jackson-datatype-jsr310.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <validatorfx.version>0.5.0</validatorfx.version>
     </properties>
 
     <dependencies>
