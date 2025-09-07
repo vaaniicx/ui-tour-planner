@@ -3,6 +3,7 @@ package at.fhtw.tourplanner.ui.viewmodel;
 import at.fhtw.tourplanner.ui.model.*;
 import at.fhtw.tourplanner.ui.service.TourLogSelectionService;
 import at.fhtw.tourplanner.ui.service.TourSelectionService;
+import at.fhtw.tourplanner.ui.service.TourService;
 import at.fhtw.tourplanner.ui.service.ViewModeService;
 import at.fhtw.tourplanner.ui.service.api.TourLogApiService;
 import javafx.beans.property.*;
@@ -77,7 +78,7 @@ public class TourLogDetailsViewModel {
             TourLog toBeUpdated = new TourLog(selectedTourLog.id(), selectedTourLog.tourId(), comment.get(), date.get(), difficulty.get(), rating.get(), distance.get(), duration.get());
             TourLogApiService.getInstance().updateTourLog(toBeUpdated);
         }
-        System.out.println("todo: refetch tour logs");
+        TourService.getInstance().loadTours();
     }
 
     private Tour getSelectedTourProperty() {
@@ -87,5 +88,6 @@ public class TourLogDetailsViewModel {
     public void deleteTourLog() {
         TourLog toBeDeleted = this.selectedTourLog.get();
         TourLogApiService.getInstance().deleteTourLog(toBeDeleted.tourId(), toBeDeleted.id());
+        TourService.getInstance().loadTours();
     }
 }

@@ -22,7 +22,8 @@ public class TourLogService {
         if (logs.isEmpty()) {
             tourLogs.setAll(new ArrayList<>());
         } else {
-            tourLogs.setAll(logs);
+            List<TourLog> logsWithTourId = logs.stream().map(log -> log.withTourId(tourId)).toList();
+            tourLogs.setAll(logsWithTourId);
             tourLogs.sort(Comparator.comparing(TourLog::date).reversed());
         }
     }
