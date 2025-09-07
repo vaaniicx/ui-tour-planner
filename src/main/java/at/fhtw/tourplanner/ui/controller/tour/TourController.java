@@ -1,8 +1,6 @@
 package at.fhtw.tourplanner.ui.controller.tour;
 
 import at.fhtw.tourplanner.ui.controller.Controller;
-import at.fhtw.tourplanner.ui.model.Tour;
-import at.fhtw.tourplanner.ui.service.api.TourApiService;
 import at.fhtw.tourplanner.ui.view.ViewHandler;
 import at.fhtw.tourplanner.ui.viewmodel.TourViewModel;
 import javafx.application.HostServices;
@@ -17,7 +15,6 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class TourController extends Controller implements Initializable {
@@ -81,7 +78,7 @@ public class TourController extends Controller implements Initializable {
         switchTab(tourTab);
     }
 
-/*    private void handleImportTour() {
+    private void handleImportTour() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Touren importieren");
 
@@ -96,44 +93,7 @@ public class TourController extends Controller implements Initializable {
         } else {
             System.out.println("Success");
         }
-    }*/
-private void handleImportTour() {
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Touren importieren");
-    fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Dateien (*.json)", "*.json"));
-
-    Stage stage = (Stage) tabPane.getScene().getWindow();
-    File selectedFile = fileChooser.showOpenDialog(stage);
-
-    if (selectedFile == null) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Import abgebrochen");
-        alert.setHeaderText(null);
-        alert.setContentText("Es wurde keine Datei ausgewählt.");
-        alert.showAndWait();
-        return;
     }
-
-    try {
-        int imported = new at.fhtw.tourplanner.ui.service.TourImportService().importTours(selectedFile);
-
-        // 👉 Liste der Tours neu laden
-        new at.fhtw.tourplanner.ui.viewmodel.TourListViewModel().loadTours();
-
-        Alert ok = new Alert(Alert.AlertType.INFORMATION);
-        ok.setTitle("Import erfolgreich");
-        ok.setHeaderText(null);
-        ok.setContentText(imported + " Tour(en) importiert und Liste aktualisiert.");
-        ok.showAndWait();
-    } catch (Exception ex) {
-        Alert err = new Alert(Alert.AlertType.ERROR);
-        err.setTitle("Import fehlgeschlagen");
-        err.setHeaderText("Datei konnte nicht importiert werden");
-        err.setContentText(ex.getMessage());
-        err.showAndWait();
-    }
-}
-
 
     private void handleExportTour() {
         HostServices hostServices = ViewHandler.getInstance().getHostServices();
